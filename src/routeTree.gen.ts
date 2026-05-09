@@ -12,6 +12,7 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as ServicesRouteImport } from './routes/services'
 import { Route as ContactRouteImport } from './routes/contact'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as ApiBankDetailsRouteImport } from './routes/api/bank.details'
 
 const ServicesRoute = ServicesRouteImport.update({
   id: '/services',
@@ -28,35 +29,44 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ApiBankDetailsRoute = ApiBankDetailsRouteImport.update({
+  id: '/api/bank/details',
+  path: '/api/bank/details',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/contact': typeof ContactRoute
   '/services': typeof ServicesRoute
+  '/api/bank/details': typeof ApiBankDetailsRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/contact': typeof ContactRoute
   '/services': typeof ServicesRoute
+  '/api/bank/details': typeof ApiBankDetailsRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/contact': typeof ContactRoute
   '/services': typeof ServicesRoute
+  '/api/bank/details': typeof ApiBankDetailsRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/contact' | '/services'
+  fullPaths: '/' | '/contact' | '/services' | '/api/bank/details'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/contact' | '/services'
-  id: '__root__' | '/' | '/contact' | '/services'
+  to: '/' | '/contact' | '/services' | '/api/bank/details'
+  id: '__root__' | '/' | '/contact' | '/services' | '/api/bank/details'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   ContactRoute: typeof ContactRoute
   ServicesRoute: typeof ServicesRoute
+  ApiBankDetailsRoute: typeof ApiBankDetailsRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -82,6 +92,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/bank/details': {
+      id: '/api/bank/details'
+      path: '/api/bank/details'
+      fullPath: '/api/bank/details'
+      preLoaderRoute: typeof ApiBankDetailsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -89,7 +106,18 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   ContactRoute: ContactRoute,
   ServicesRoute: ServicesRoute,
+  ApiBankDetailsRoute: ApiBankDetailsRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { startInstance } from './start.ts'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+    config: Awaited<ReturnType<typeof startInstance.getOptions>>
+  }
+}
