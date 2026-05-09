@@ -12,6 +12,7 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as ServicesRouteImport } from './routes/services'
 import { Route as ContactRouteImport } from './routes/contact'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as ApiContactSendRouteImport } from './routes/api/contact.send'
 import { Route as ApiBankDetailsRouteImport } from './routes/api/bank.details'
 
 const ServicesRoute = ServicesRouteImport.update({
@@ -29,6 +30,11 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ApiContactSendRoute = ApiContactSendRouteImport.update({
+  id: '/api/contact/send',
+  path: '/api/contact/send',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ApiBankDetailsRoute = ApiBankDetailsRouteImport.update({
   id: '/api/bank/details',
   path: '/api/bank/details',
@@ -40,12 +46,14 @@ export interface FileRoutesByFullPath {
   '/contact': typeof ContactRoute
   '/services': typeof ServicesRoute
   '/api/bank/details': typeof ApiBankDetailsRoute
+  '/api/contact/send': typeof ApiContactSendRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/contact': typeof ContactRoute
   '/services': typeof ServicesRoute
   '/api/bank/details': typeof ApiBankDetailsRoute
+  '/api/contact/send': typeof ApiContactSendRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -53,13 +61,25 @@ export interface FileRoutesById {
   '/contact': typeof ContactRoute
   '/services': typeof ServicesRoute
   '/api/bank/details': typeof ApiBankDetailsRoute
+  '/api/contact/send': typeof ApiContactSendRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/contact' | '/services' | '/api/bank/details'
+  fullPaths:
+    | '/'
+    | '/contact'
+    | '/services'
+    | '/api/bank/details'
+    | '/api/contact/send'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/contact' | '/services' | '/api/bank/details'
-  id: '__root__' | '/' | '/contact' | '/services' | '/api/bank/details'
+  to: '/' | '/contact' | '/services' | '/api/bank/details' | '/api/contact/send'
+  id:
+    | '__root__'
+    | '/'
+    | '/contact'
+    | '/services'
+    | '/api/bank/details'
+    | '/api/contact/send'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -67,6 +87,7 @@ export interface RootRouteChildren {
   ContactRoute: typeof ContactRoute
   ServicesRoute: typeof ServicesRoute
   ApiBankDetailsRoute: typeof ApiBankDetailsRoute
+  ApiContactSendRoute: typeof ApiContactSendRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -92,6 +113,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/contact/send': {
+      id: '/api/contact/send'
+      path: '/api/contact/send'
+      fullPath: '/api/contact/send'
+      preLoaderRoute: typeof ApiContactSendRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/api/bank/details': {
       id: '/api/bank/details'
       path: '/api/bank/details'
@@ -107,6 +135,7 @@ const rootRouteChildren: RootRouteChildren = {
   ContactRoute: ContactRoute,
   ServicesRoute: ServicesRoute,
   ApiBankDetailsRoute: ApiBankDetailsRoute,
+  ApiContactSendRoute: ApiContactSendRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
