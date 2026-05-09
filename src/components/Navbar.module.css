@@ -1,0 +1,105 @@
+.nav {
+  background: var(--navy);
+  padding: 0 60px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 72px;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  border-bottom: 1px solid var(--navy-border);
+}
+
+.logo {
+  font-family: var(--font-serif);
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--white);
+  letter-spacing: 0.5px;
+  text-decoration: none;
+}
+.logo span { color: var(--gold); }
+
+.links {
+  display: flex;
+  gap: 36px;
+  list-style: none;
+}
+.links a {
+  color: var(--grey-light);
+  font-size: 14px;
+  text-decoration: none;
+  letter-spacing: 0.3px;
+  transition: color 0.2s;
+}
+.links a:hover, .links a.active { color: var(--white); }
+.links a.active { border-bottom: 1px solid var(--gold); padding-bottom: 2px; }
+
+.navRight { display: flex; align-items: center; gap: 20px; }
+
+.email {
+  font-size: 12px;
+  color: var(--grey-mid);
+  text-decoration: none;
+  letter-spacing: 0.3px;
+  transition: color 0.2s;
+}
+.email:hover { color: var(--gold); }
+
+.cta {
+  background: var(--gold);
+  color: var(--navy);
+  font-size: 13px;
+  font-weight: 500;
+  padding: 10px 24px;
+  letter-spacing: 0.5px;
+  text-decoration: none;
+  transition: background 0.2s;
+  white-space: nowrap;
+}
+.cta:hover { background: var(--gold-light); }
+
+.burger {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px;
+}
+.burger span {
+  display: block;
+  width: 22px;
+  height: 2px;
+  background: var(--white);
+  transition: all 0.2s;
+}
+
+@media (max-width: 900px) {
+  .nav { padding: 0 24px; }
+  .email { display: none; }
+  .navRight { gap: 12px; }
+
+  .links {
+    display: none;
+    position: absolute;
+    top: 72px;
+    left: 0;
+    right: 0;
+    background: var(--navy-mid);
+    flex-direction: column;
+    gap: 0;
+    border-bottom: 1px solid var(--navy-border);
+  }
+  .links.open { display: flex; }
+  .links li a {
+    display: block;
+    padding: 16px 24px;
+    border-bottom: 1px solid var(--navy-border);
+    color: var(--grey-light);
+  }
+
+  .burger { display: flex; }
+}

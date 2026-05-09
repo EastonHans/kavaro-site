@@ -1,0 +1,49 @@
+.container { padding: 70px 60px; }
+
+.grid {
+  display: grid;
+  grid-template-columns: 1fr 380px;
+  gap: 60px;
+  align-items: start;
+}
+
+.form { display: flex; flex-direction: column; gap: 20px; }
+
+.row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+
+.infoSide { display: flex; flex-direction: column; gap: 24px; }
+
+.infoCard {
+  background: var(--grey-bg);
+  border: 1px solid var(--grey-pale);
+  padding: 28px;
+}
+.infoCard h3 {
+  font-family: var(--font-serif);
+  font-size: 18px; font-weight: 700;
+  color: var(--navy); margin-bottom: 20px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid var(--grey-pale);
+}
+
+.contactItem { display: flex; gap: 14px; align-items: flex-start; margin-bottom: 18px; }
+.contactIcon { font-size: 18px; margin-top: 2px; }
+.contactLabel { font-size: 11px; color: var(--grey-mid); letter-spacing: 0.5px; text-transform: uppercase; margin-bottom: 4px; }
+.contactItem a { font-size: 14px; color: var(--gold); }
+.contactItem p { font-size: 14px; color: var(--navy); }
+
+.nextStep { display: flex; gap: 14px; align-items: flex-start; margin-bottom: 14px; }
+.nextStep span {
+  font-family: var(--font-serif); font-size: 13px;
+  color: var(--gold); font-weight: 700; min-width: 24px;
+}
+.nextStep p { font-size: 13px; color: var(--grey-mid); line-height: 1.6; }
+
+@media (max-width: 960px) {
+  .container { padding: 48px 24px; }
+  .grid { grid-template-columns: 1fr; }
+  .infoSide { order: -1; }
+}
+@media (max-width: 600px) {
+  .row { grid-template-columns: 1fr; }
+}

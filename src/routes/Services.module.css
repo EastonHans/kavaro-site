@@ -1,0 +1,46 @@
+.section { padding: 70px 60px; }
+
+.grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1px; background: var(--grey-pale); }
+
+.card {
+  background: var(--white); padding: 40px 36px;
+  display: flex; flex-direction: column; gap: 0;
+}
+
+.cardTop { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
+
+.num { font-family: var(--font-serif); font-size: 13px; color: var(--grey-pale); letter-spacing: 1px; }
+
+.tag { font-size: 10px; color: var(--gold); border: 1px solid var(--gold); padding: 4px 10px; letter-spacing: 1px; text-transform: uppercase; }
+
+.title { font-family: var(--font-serif); font-size: 24px; font-weight: 700; color: var(--navy); margin-bottom: 14px; line-height: 1.2; }
+
+.desc { font-size: 14px; color: var(--grey-mid); line-height: 1.7; margin-bottom: 24px; }
+
+.features { list-style: none; margin-bottom: 32px; display: flex; flex-direction: column; gap: 10px; }
+.features li { font-size: 13px; color: var(--grey-dark); display: flex; align-items: center; gap: 10px; }
+.features li::before { content: ''; width: 6px; height: 6px; background: var(--gold); flex-shrink: 0; }
+
+.cardBottom { margin-top: auto; padding-top: 24px; border-top: 1px solid var(--grey-pale); display: flex; justify-content: space-between; align-items: center; gap: 16px; flex-wrap: wrap; }
+
+.pricing { display: flex; flex-direction: column; }
+.price { font-family: var(--font-serif); font-size: 20px; font-weight: 700; color: var(--navy); }
+.priceSub { font-size: 12px; color: var(--grey-mid); margin-top: 2px; }
+
+.cardBtns { display: flex; gap: 10px; }
+.cardBtns a { display: inline-block; }
+
+.customSection {
+  background: var(--navy); padding: 70px 60px; text-align: center;
+}
+.customSection h2 { font-family: var(--font-serif); font-size: 36px; font-weight: 700; color: var(--white); margin-bottom: 16px; }
+.customSection p { font-size: 15px; color: var(--grey-light); max-width: 540px; margin: 0 auto 36px; line-height: 1.8; font-weight: 300; }
+
+@media (max-width: 900px) {
+  .section { padding: 48px 24px; }
+  .grid { grid-template-columns: 1fr; }
+  .customSection { padding: 60px 24px; }
+}
+@media (max-width: 500px) {
+  .cardBottom { flex-direction: column; align-items: flex-start; }
+}
