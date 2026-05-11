@@ -103,7 +103,7 @@ function Contact() {
                 <div className={styles.contactIcon}>💬</div>
                 <div>
                   <p className={styles.contactLabel}>WhatsApp</p>
-                  <a href="https://wa.me/254791610525" target="_blank" rel="noreferrer">+254 791 610 525</a>
+                  <a href={`https://wa.me/254791610525?text=${encodeURIComponent("Hi Kavaro! I'd like to chat about a project.")}`} target="_blank" rel="noreferrer">+254 791 610 525</a>
                 </div>
               </div>
               <div className={styles.contactItem}>

@@ -31,7 +31,7 @@ export default function Footer() {
           <h5>Contact</h5>
           <ul>
             <li><a href="mailto:websitekavaro@gmail.com">websitekavaro@gmail.com</a></li>
-            <li><a href="https://wa.me/254791610525" target="_blank" rel="noreferrer">WhatsApp: +254 791 610 525</a></li>
+            <li><a href={`https://wa.me/254791610525?text=${encodeURIComponent("Hi Kavaro! I'd like to chat about a project.")}`} target="_blank" rel="noreferrer">WhatsApp: +254 791 610 525</a></li>
             <li><span>Nairobi, Kenya</span></li>
             <li><a href="https://linkedin.com" target="_blank" rel="noreferrer">LinkedIn</a></li>
           </ul>
