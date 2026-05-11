@@ -13,7 +13,7 @@ export const Route = createFileRoute('/contact')({
   }),
 })
 
-const services = ['UI / UX Design', 'Graphic Design', 'Web Development', 'Brand Identity', 'Digital Marketing', 'Other']
+const services = ['UI / UX Design', 'Graphic Design', 'Web Development', 'AI Solutions', 'Brand Identity', 'Digital Marketing', 'Other']
 const budgets = ['Under KES 20,000', 'KES 20,000 – 50,000', 'KES 50,000 – 100,000', 'KES 100,000+', "Let's discuss"]
 
 function Contact() {
@@ -103,7 +103,7 @@ function Contact() {
                 <div className={styles.contactIcon}>💬</div>
                 <div>
                   <p className={styles.contactLabel}>WhatsApp</p>
-                  <a href={`https://wa.me/254791610525?text=${encodeURIComponent("Hi Kavaro! I'd like to chat about a project.")}`} target="_blank" rel="noreferrer">+254 791 610 525</a>
+                  <a href={`https://wa.me/254791610525?text=${encodeURIComponent("Hi Kavaro! I'd like to chat about a project.")}`} target="_blank" rel="noreferrer" onClick={(e) => { e.preventDefault(); window.open(`https://wa.me/254791610525?text=${encodeURIComponent("Hi Kavaro! I'd like to chat about a project.")}`, '_blank', 'noopener,noreferrer') }}>+254 791 610 525</a>
                 </div>
               </div>
               <div className={styles.contactItem}>

@@ -16,6 +16,7 @@ export default function Footer() {
             <li><Link to="/services">UI / UX Design</Link></li>
             <li><Link to="/services">Graphic Design</Link></li>
             <li><Link to="/services">Web Development</Link></li>
+            <li><Link to="/services">AI Solutions</Link></li>
             <li><Link to="/services">Brand Strategy</Link></li>
           </ul>
         </div>
@@ -31,7 +32,7 @@ export default function Footer() {
           <h5>Contact</h5>
           <ul>
             <li><a href="mailto:websitekavaro@gmail.com">websitekavaro@gmail.com</a></li>
-            <li><a href={`https://wa.me/254791610525?text=${encodeURIComponent("Hi Kavaro! I'd like to chat about a project.")}`} target="_blank" rel="noreferrer">WhatsApp: +254 791 610 525</a></li>
+            <li><a href={`https://wa.me/254791610525?text=${encodeURIComponent("Hi Kavaro! I'd like to chat about a project.")}`} target="_blank" rel="noreferrer" onClick={(e) => { e.preventDefault(); window.open(`https://wa.me/254791610525?text=${encodeURIComponent("Hi Kavaro! I'd like to chat about a project.")}`, '_blank', 'noopener,noreferrer') }}>WhatsApp: +254 791 610 525</a></li>
             <li><span>Nairobi, Kenya</span></li>
             <li><a href="https://linkedin.com" target="_blank" rel="noreferrer">LinkedIn</a></li>
           </ul>

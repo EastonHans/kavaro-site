@@ -24,6 +24,7 @@ const services = [
   { num: '01', title: 'UI / UX Design', desc: 'Intuitive interfaces crafted with user psychology at the core.', tag: 'Figma · Prototyping · Research' },
   { num: '02', title: 'Graphic Design', desc: 'Visual identities and marketing assets that tell your story.', tag: 'Branding · Print · Social' },
   { num: '03', title: 'Web Development', desc: 'Fast, responsive, scalable websites engineered for growth.', tag: 'React · Node.js · CMS' },
+  { num: '04', title: 'AI Solutions', desc: 'Smart chatbots, automation and AI features built into your products.', tag: 'LLMs · Automation · Integration' },
 ]
 const marqueeItems = ['UI/UX Design','Web Development','Graphic Design','Brand Strategy','Digital Solutions']
 const upcoming = ['Digital Marketing','Content Strategy','Photography & Video','SEO & Analytics','Copywriting','Motion Design']
