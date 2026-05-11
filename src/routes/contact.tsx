@@ -100,6 +100,13 @@ function Contact() {
                 </div>
               </div>
               <div className={styles.contactItem}>
+                <div className={styles.contactIcon}>💬</div>
+                <div>
+                  <p className={styles.contactLabel}>WhatsApp</p>
+                  <a href="https://wa.me/254791610525" target="_blank" rel="noreferrer">+254 791 610 525</a>
+                </div>
+              </div>
+              <div className={styles.contactItem}>
                 <div className={styles.contactIcon}>📍</div>
                 <div>
                   <p className={styles.contactLabel}>Location</p>
