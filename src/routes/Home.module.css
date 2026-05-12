@@ -121,3 +121,61 @@
 @media (max-width: 960px) {
   .vmSec { grid-template-columns: 1fr; padding: 60px 24px; gap: 40px; }
 }
+
+/* Tech strip (replaces marquee role) */
+.techStrip { background: var(--navy); border-top: 1px solid var(--navy-border); border-bottom: 1px solid var(--navy-border); padding: 22px 60px; display: flex; align-items: center; gap: 32px; flex-wrap: wrap; justify-content: center; }
+.techLabel { font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: var(--gold); font-weight: 500; }
+.techList { display: flex; gap: 28px; flex-wrap: wrap; justify-content: center; }
+.techItem { font-family: var(--font-serif); font-size: 15px; color: var(--grey-light); letter-spacing: 0.5px; }
+
+/* Story copy inside vmSec */
+.storyH { font-family: var(--font-serif); font-size: 32px; font-weight: 700; color: var(--navy); line-height: 1.2; margin-bottom: 18px; }
+.storyH em { font-style: italic; color: var(--gold); }
+.storyP { font-size: 15px; color: var(--grey-dark); line-height: 1.85; font-weight: 300; margin-bottom: 16px; }
+
+/* Industries */
+.industriesSec { padding: 90px 60px; background: var(--grey-bg); }
+.indGrid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--grey-pale); margin-top: 48px; }
+.indCard { background: var(--white); padding: 36px 28px; transition: transform 0.3s; }
+.indCard:hover { transform: translateY(-4px); }
+.indIcon { font-size: 32px; margin-bottom: 16px; }
+.indCard h4 { font-family: var(--font-serif); font-size: 18px; font-weight: 700; color: var(--navy); margin-bottom: 8px; }
+.indCard p { font-size: 13px; color: var(--grey-mid); line-height: 1.7; }
+
+/* Dual-audience */
+.audienceSec { display: grid; grid-template-columns: 1fr 1fr; gap: 0; }
+.audienceCol { padding: 80px 60px; background: var(--white); }
+.audienceColAlt { background: var(--navy); }
+.audienceCol h3 { font-family: var(--font-serif); font-size: 28px; font-weight: 700; color: var(--navy); margin: 12px 0 16px; line-height: 1.2; }
+.audienceColAlt h3 { color: var(--white); }
+.audienceCol p { font-size: 15px; color: var(--grey-dark); line-height: 1.8; font-weight: 300; margin-bottom: 24px; }
+.audienceColAlt p { color: var(--grey-light); }
+.audienceCol ul { list-style: none; margin-bottom: 32px; display: flex; flex-direction: column; gap: 10px; }
+.audienceCol ul li { font-size: 14px; color: var(--grey-dark); display: flex; align-items: center; gap: 12px; }
+.audienceColAlt ul li { color: var(--grey-light); }
+.audienceCol ul li::before { content: ''; width: 6px; height: 6px; background: var(--gold); flex-shrink: 0; }
+
+/* Testimonials */
+.testSec { padding: 90px 60px; background: var(--white); }
+.testGrid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-top: 48px; }
+.testCard { background: var(--grey-bg); padding: 36px 28px; border-top: 3px solid var(--gold); position: relative; }
+.testQuote { font-family: var(--font-serif); font-size: 60px; line-height: 0.6; color: var(--gold); margin-bottom: 12px; }
+.testText { font-size: 15px; color: var(--grey-dark); line-height: 1.8; font-weight: 300; margin-bottom: 24px; font-style: italic; }
+.testMeta { padding-top: 16px; border-top: 1px solid var(--grey-pale); }
+.testMeta strong { display: block; font-family: var(--font-serif); font-size: 14px; color: var(--navy); }
+.testMeta span { font-size: 12px; color: var(--grey-mid); letter-spacing: 0.5px; text-transform: uppercase; }
+
+@media (max-width: 960px) {
+  .techStrip { padding: 18px 24px; gap: 16px; }
+  .techList { gap: 18px; }
+  .industriesSec { padding: 60px 24px; }
+  .indGrid { grid-template-columns: 1fr 1fr; }
+  .audienceSec { grid-template-columns: 1fr; }
+  .audienceCol { padding: 50px 24px; }
+  .testSec { padding: 60px 24px; }
+  .testGrid { grid-template-columns: 1fr; }
+  .storyH { font-size: 26px; }
+}
+@media (max-width: 500px) {
+  .indGrid { grid-template-columns: 1fr; }
+}
