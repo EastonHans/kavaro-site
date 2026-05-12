@@ -107,3 +107,17 @@
   .procSteps { grid-template-columns: 1fr; }
   .ctaBtns { flex-direction: column; align-items: center; }
 }
+
+.vmSec { padding: 90px 60px; background: var(--white); display: grid; grid-template-columns: 1fr 1.2fr; gap: 70px; align-items: center; }
+.vmImageWrap { position: relative; }
+.vmImage { width: 100%; max-width: 420px; aspect-ratio: 1/1; object-fit: cover; border-radius: 50%; background: var(--grey-bg); display: block; margin: 0 auto; box-shadow: 0 20px 60px -20px rgba(0,0,0,0.25); }
+.vmFounder { text-align: center; margin-top: 20px; }
+.vmFounder strong { display: block; font-family: var(--font-serif); color: var(--navy); font-size: 16px; }
+.vmFounder span { font-size: 12px; color: var(--grey-mid); letter-spacing: 1px; text-transform: uppercase; }
+.vmCards { display: flex; flex-direction: column; gap: 24px; }
+.vmCard { border-left: 3px solid var(--gold); padding: 8px 0 8px 24px; }
+.vmCard h3 { font-family: var(--font-serif); font-size: 24px; font-weight: 700; color: var(--navy); margin-bottom: 10px; }
+.vmCard p { font-size: 15px; color: var(--grey-dark); line-height: 1.8; font-weight: 300; }
+@media (max-width: 960px) {
+  .vmSec { grid-template-columns: 1fr; padding: 60px 24px; gap: 40px; }
+}
