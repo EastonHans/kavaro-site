@@ -2,6 +2,7 @@ import { createFileRoute, Link } from '@tanstack/react-router'
 import { useState } from 'react'
 import PaymentModal from '@/components/PaymentModal'
 import VerificationModal from '@/components/VerificationModal'
+import founderImg from '@/assets/founder.png'
 import styles from './Home.module.css'
 
 export const Route = createFileRoute('/')({
