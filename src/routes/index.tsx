@@ -115,9 +115,9 @@ function Home() {
     <main>
       <section className={styles.hero}>
         <div className={styles.heroLeft}>
-          <div className={styles.badge}><span className={styles.dot}/><p>Remote Digital Studio · Nairobi</p></div>
-          <h1>A Modern Digital Studio for <em>Growing</em> Businesses</h1>
-          <p>Kavaro is a small remote studio building websites and digital experiences for businesses that are ready to grow online. Designed by a trained product designer, built with modern tools.</p>
+          <div className={styles.badge}><span className={styles.dot}/><p>Fast-Growing Digital Studio · Remote · Nairobi</p></div>
+          <h1>A Fast-Growing Digital Studio Building <em>Websites</em> &amp; Digital Tools</h1>
+          <p>Kavaro is an emerging remote studio for growing businesses — landing pages, business websites, booking systems, dashboards and AI-enhanced features. Designed by a trained product designer, built with modern tools, shipped honestly.</p>
           <div className={styles.heroBtns}>
             <a href={CALENDLY_URL} target="_blank" rel="noreferrer" className="btn-primary">Book a Call</a>
             <Link to="/services" className="btn-secondary">Explore Services</Link>
