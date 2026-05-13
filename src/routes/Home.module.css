@@ -179,3 +179,44 @@
 @media (max-width: 500px) {
   .indGrid { grid-template-columns: 1fr; }
 }
+
+/* Sample projects / case studies */
+.projSec { padding: 90px 60px; background: var(--white); }
+.projGrid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 32px; margin-top: 48px; }
+.projCard { background: var(--white); border: 1px solid var(--grey-pale); display: flex; flex-direction: column; transition: transform 0.3s, box-shadow 0.3s; }
+.projCard:hover { transform: translateY(-4px); box-shadow: 0 20px 50px -20px rgba(0,0,0,0.18); }
+.projHero { aspect-ratio: 16/8; display: flex; align-items: flex-end; padding: 24px; position: relative; }
+.projType { background: rgba(255,255,255,0.95); color: var(--navy); font-size: 11px; padding: 6px 12px; letter-spacing: 1.5px; text-transform: uppercase; font-weight: 500; }
+.projBody { padding: 28px 28px 32px; display: flex; flex-direction: column; gap: 16px; }
+.projTitle { font-family: var(--font-serif); font-size: 22px; font-weight: 700; color: var(--navy); line-height: 1.2; margin-bottom: 4px; }
+.projBlock { display: flex; flex-direction: column; gap: 6px; }
+.projLabel { font-size: 10px; letter-spacing: 1.5px; text-transform: uppercase; color: var(--gold); font-weight: 600; }
+.projBlock p { font-size: 14px; color: var(--grey-dark); line-height: 1.7; font-weight: 300; }
+.projTools { display: flex; flex-wrap: wrap; gap: 6px; }
+.projTool { font-size: 11px; background: var(--grey-bg); color: var(--navy); padding: 4px 10px; letter-spacing: 0.4px; }
+.projNote { margin-top: 32px; font-size: 12px; color: var(--grey-mid); font-style: italic; text-align: center; }
+
+/* Skills section (replaces upcoming) */
+.skillsSec { background: var(--navy); padding: 80px 60px; }
+.skillsInner { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
+.calBtn { display: inline-block; background: var(--gold); color: var(--navy); padding: 14px 24px; font-size: 13px; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; text-decoration: none; transition: background 0.3s; font-family: var(--font-sans); }
+.calBtn:hover { background: var(--gold-light); }
+
+/* 7-step process */
+.procSteps7 { display: grid; grid-template-columns: repeat(7, 1fr); position: relative; margin-top: 48px; gap: 8px; }
+.procSteps7::before { content: ''; position: absolute; top: 24px; left: 7%; right: 7%; height: 1px; background: var(--grey-pale); }
+
+@media (max-width: 1100px) {
+  .procSteps7 { grid-template-columns: repeat(4, 1fr); gap: 32px; }
+  .procSteps7::before { display: none; }
+}
+@media (max-width: 960px) {
+  .projSec { padding: 60px 24px; }
+  .projGrid { grid-template-columns: 1fr; gap: 24px; }
+  .skillsSec { padding: 60px 24px; }
+  .skillsInner { grid-template-columns: 1fr; gap: 48px; }
+  .procSteps7 { grid-template-columns: 1fr 1fr; gap: 32px; }
+}
+@media (max-width: 500px) {
+  .procSteps7 { grid-template-columns: 1fr; }
+}
