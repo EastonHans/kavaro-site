@@ -110,10 +110,10 @@ function Contact() {
                 </div>
               </div>
               <div className={styles.contactItem}>
-                <div className={styles.contactIcon}>📍</div>
+                <div className={styles.contactIcon}>🌍</div>
                 <div>
                   <p className={styles.contactLabel}>Location</p>
-                  <p>Nairobi, Kenya</p>
+                  <p>Remote · Based in Nairobi, Kenya</p>
                 </div>
               </div>
               <div className={styles.contactItem}>
@@ -123,6 +123,12 @@ function Contact() {
                   <p>Within 24 hours</p>
                 </div>
               </div>
+            </div>
+
+            <div className={styles.infoCard}>
+              <h3>Prefer to Talk?</h3>
+              <p style={{ fontSize: 14, color: 'var(--grey-mid)', lineHeight: 1.7, marginBottom: 16 }}>Skip the form — book a free 30-minute discovery call directly on our calendar.</p>
+              <a href="https://calendly.com/kavaro/30min" target="_blank" rel="noreferrer" className="btn-primary" style={{ display: 'inline-block' }}>📅 Open Calendly</a>
             </div>
 
             <div className={styles.infoCard}>
