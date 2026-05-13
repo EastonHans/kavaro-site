@@ -115,9 +115,9 @@ function Home() {
     <main>
       <section className={styles.hero}>
         <div className={styles.heroLeft}>
-          <div className={styles.badge}><span className={styles.dot}/><p>Remote Digital Studio · Nairobi</p></div>
-          <h1>A Modern Digital Studio for <em>Growing</em> Businesses</h1>
-          <p>Kavaro is a small remote studio building websites and digital experiences for businesses that are ready to grow online. Designed by a trained product designer, built with modern tools.</p>
+          <div className={styles.badge}><span className={styles.dot}/><p>Fast-Growing Digital Studio · Remote · Nairobi</p></div>
+          <h1>A Fast-Growing Digital Studio Building <em>Websites</em> &amp; Digital Tools</h1>
+          <p>Kavaro is an emerging remote studio for growing businesses — landing pages, business websites, booking systems, dashboards and AI-enhanced features. Designed by a trained product designer, built with modern tools, shipped honestly.</p>
           <div className={styles.heroBtns}>
             <a href={CALENDLY_URL} target="_blank" rel="noreferrer" className="btn-primary">Book a Call</a>
             <Link to="/services" className="btn-secondary">Explore Services</Link>
@@ -152,9 +152,9 @@ function Home() {
         </div>
         <div className={styles.vmCards}>
           <div className="section-label">About Kavaro</div>
-          <h2 className={styles.storyH}>A Studio Built on <em>Design</em> &amp; Curiosity</h2>
-          <p className={styles.storyP}>I'm a UI/UX product design graduate currently studying software engineering at Moringa School. Kavaro started while watching my father navigate dialysis — chasing schedules, results and updates in person. Most local services had no digital presence. None.</p>
-          <p className={styles.storyP}>So I started building. Kavaro is a remote studio focused on giving small and growing businesses the kind of digital experience usually reserved for bigger players — done with care, by someone learning and shipping in public.</p>
+          <h2 className={styles.storyH}>An <em>Emerging</em> Studio. Honest Craft. Real Projects.</h2>
+          <p className={styles.storyP}>I'm a UI/UX product design graduate currently studying software engineering at Moringa School — already working with JavaScript, React and Node.js, and going deeper into APIs, databases and full-stack fundamentals. Kavaro started while watching my father navigate dialysis. Most local services had no digital presence. None.</p>
+          <p className={styles.storyP}>So I started building. Kavaro is a remote studio for growing businesses — websites, booking systems, dashboards and AI-enhanced features — done with care, by someone learning fast and shipping in public.</p>
           <div className={styles.vmCard}>
             <h3>Our Vision</h3>
             <p>A world where every growing business — from a Nairobi clinic to a remote-first startup — has a digital experience that genuinely works for the people using it.</p>
@@ -183,8 +183,8 @@ function Home() {
 
       <section className={styles.section}>
         <div className="section-label">What We Do</div>
-        <h2 className={styles.secH}>Services for Growing Businesses</h2>
-        <p className={styles.secSub}>Strategic thinking and hands-on craft — delivered as websites, AI tools and brand systems that move the needle.</p>
+        <h2 className={styles.secH}>What Kavaro Can Build for You Today</h2>
+        <p className={styles.secSub}>Real, commercially-useful work at the studio's current stage — websites, booking systems, dashboards, CRUD apps, AI-enhanced features and brand systems.</p>
         <div className={styles.svcGrid}>
           {services.map((s, i) => (
             <div key={s.num} className={`${styles.svcCard} ${hoveredSvc === i ? styles.svcHovered : ''}`}
