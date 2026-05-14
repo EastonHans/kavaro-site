@@ -72,12 +72,21 @@ function Contact() {
                   </select>
                 </div>
               </div>
-              <div className="form-group">
-                <label>Budget Range</label>
-                <select value={form.budget} onChange={set('budget')}>
-                  <option value="">Select your budget...</option>
-                  {budgets.map(b => <option key={b} value={b}>{b}</option>)}
-                </select>
+              <div className={styles.row}>
+                <div className="form-group">
+                  <label>Budget Range</label>
+                  <select value={form.budget} onChange={set('budget')}>
+                    <option value="">Select your budget...</option>
+                    {budgets.map(b => <option key={b} value={b}>{b}</option>)}
+                  </select>
+                </div>
+                <div className="form-group">
+                  <label>Project Timeline</label>
+                  <select value={form.timeline} onChange={set('timeline')}>
+                    <option value="">When do you need this?</option>
+                    {timelines.map(t => <option key={t} value={t}>{t}</option>)}
+                  </select>
+                </div>
               </div>
               <div className="form-group">
                 <label>Tell Us About Your Project *</label>
