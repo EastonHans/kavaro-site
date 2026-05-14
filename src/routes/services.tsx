@@ -37,9 +37,9 @@ function Services() {
   return (
     <main>
       <div className="page-hero">
-        <div className="section-label">What We Offer</div>
-        <h1>Services That <em>Drive Results</em></h1>
-        <p>Every service is delivered with strategic intent, precise execution, and a commitment to measurable outcomes.</p>
+        <div className="section-label">What I Can Build For You</div>
+        <h1>Honest Services. <em>Real Skills.</em></h1>
+        <p>I'm a UI/UX designer learning full-stack development at Moringa School. These are the things I can genuinely build for you today — at fair, beginner-studio prices. No premium markup, no overselling.</p>
       </div>
 
       <section className={styles.section}>
