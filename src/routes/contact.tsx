@@ -18,7 +18,7 @@ const budgets = ['Under KES 20,000', 'KES 20,000 – 50,000', 'KES 50,000 – 10
 const timelines = ['ASAP (rush)', 'Within a few days', '1–2 weeks', '3–4 weeks', '1–2 months', '3+ months', 'Flexible / no rush']
 
 function Contact() {
-  const [form, setForm] = useState({ name: '', email: '', phone: '', service: '', budget: '', message: '' })
+  const [form, setForm] = useState({ name: '', email: '', phone: '', service: '', budget: '', timeline: '', message: '' })
   const [status, setStatus] = useState<{ type: 'success' | 'error'; msg: string } | null>(null)
   const [loading, setLoading] = useState(false)
   const set = (k: keyof typeof form) => (e: React.ChangeEvent<any>) => setForm(f => ({ ...f, [k]: e.target.value }))
