@@ -153,8 +153,8 @@ function Home() {
         <div className={styles.vmCards}>
           <div className="section-label">About Kavaro</div>
           <h2 className={styles.storyH}>This Started With <em>My Dad</em>.</h2>
-          <p className={styles.storyP}>My father is a dialysis patient. For years I watched him travel to the hospital just to book a session, ask a question, get a refill, or confirm a result — things a simple website or booking page could have handled in seconds. The clinic had no online presence. The pharmacy had no online presence. Most of the services he depended on had no digital front door at all.</p>
-          <p className={styles.storyP}>That broke something open for me. So many local businesses — clinics, pharmacies, schools, small service providers — are invisible online, and the people who need them suffer for it. Kavaro exists to change that, one honest website at a time.</p>
+          <p className={styles.storyP}>My father was a dialysis patient. For years I watched him travel to the hospital just to book a session, ask a question, get a refill, or confirm a result — things a simple website or booking page could have handled in seconds. The clinic had no online presence. The pharmacy had no online presence. Most of the services he depended on had no digital front door at all.</p>
+          <p className={styles.storyP}>He has since passed on, but the gap he lived with every day is still here — and it's still hurting families like ours. So many local businesses — clinics, pharmacies, schools, small service providers — are invisible online, and the people who need them suffer for it. Kavaro exists in his memory, to change that one honest website at a time.</p>
           <p className={styles.storyP}>I'm a UI/UX product design graduate currently studying software engineering at Moringa School. I work with JavaScript, React and Node.js and I'm going deeper into APIs, databases and full-stack fundamentals every week. I'm learning in public, building in public, and taking on real projects as I grow.</p>
           <div className={styles.vmCard}>
             <h3>Our Vision</h3>
