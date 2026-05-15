@@ -513,3 +513,13 @@
   .stepLine { width: 20px; }
   .stepLabel, .stepLabelActive { display: none; }
 }
+
+.simpleForm { display: flex; flex-direction: column; gap: 16px; }
+.optional { color: var(--grey-mid); font-weight: 400; font-size: 11px; text-transform: none; letter-spacing: 0; }
+.trustList { display: flex; flex-direction: column; gap: 12px; background: var(--grey-bg); padding: 16px; border-left: 3px solid var(--gold); margin-top: 4px; }
+.trustRow { display: flex; gap: 12px; align-items: flex-start; }
+.trustIcon { font-size: 18px; line-height: 1; flex-shrink: 0; margin-top: 2px; }
+.trustRow strong { display: block; font-size: 13px; color: var(--navy); font-weight: 600; margin-bottom: 2px; }
+.trustRow p { font-size: 12px; color: var(--grey-mid); line-height: 1.5; margin: 0; }
+.agreeRow { display: flex; gap: 10px; align-items: flex-start; font-size: 13px; color: var(--navy); line-height: 1.5; cursor: pointer; padding: 4px 0; }
+.agreeRow input { margin-top: 3px; flex-shrink: 0; accent-color: var(--gold); }
