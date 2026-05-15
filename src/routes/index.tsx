@@ -167,6 +167,28 @@ function Home() {
         </div>
       </section>
 
+      <section className={styles.teamSec}>
+        <div className="section-label">The Team</div>
+        <h2 className={styles.secH}>Small Team. <em>Big Heart.</em></h2>
+        <p className={styles.secSub}>A remote-first studio of builders, designers and learners. We grow the team carefully — one honest hire at a time.</p>
+        <div className={styles.teamGrid}>
+          {[
+            { name: 'Hezron Sande', role: 'Founder · Designer · Builder', bio: 'UI/UX product design graduate, software engineering at Moringa School. Builds with React, Node.js & Figma.' },
+            { name: 'Easton Hans', role: 'Developer · Collaborator', bio: 'Frontend & full-stack collaborator. Helps ship clean, working web experiences for clients.' },
+            { name: 'Open Seat', role: 'Joining soon', bio: "We're growing carefully — more teammates will be added here as the studio grows.", placeholder: true },
+          ].map(m => (
+            <div key={m.name} className={styles.teamCard}>
+              <div className={styles.teamAvatar} aria-hidden>
+                {m.placeholder ? '+' : m.name.split(' ').map(n => n[0]).join('').slice(0, 2)}
+              </div>
+              <h4>{m.name}</h4>
+              <span className={styles.teamRole}>{m.role}</span>
+              <p>{m.bio}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+
       <section className={styles.industriesSec}>
         <div className="section-label">Who We Serve</div>
         <h2 className={styles.secH}>Built for Businesses That <em>Serve People</em></h2>

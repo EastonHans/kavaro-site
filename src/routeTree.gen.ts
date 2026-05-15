@@ -14,6 +14,7 @@ import { Route as ContactRouteImport } from './routes/contact'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as ApiMpesaStkPushRouteImport } from './routes/api/mpesa.stk-push'
 import { Route as ApiMpesaQueryRouteImport } from './routes/api/mpesa.query'
+import { Route as ApiMpesaCallbackRouteImport } from './routes/api/mpesa.callback'
 import { Route as ApiContactSendRouteImport } from './routes/api/contact.send'
 import { Route as ApiContactPaymentConfirmationRouteImport } from './routes/api/contact.payment-confirmation'
 import { Route as ApiBankDetailsRouteImport } from './routes/api/bank.details'
@@ -43,6 +44,11 @@ const ApiMpesaQueryRoute = ApiMpesaQueryRouteImport.update({
   path: '/api/mpesa/query',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ApiMpesaCallbackRoute = ApiMpesaCallbackRouteImport.update({
+  id: '/api/mpesa/callback',
+  path: '/api/mpesa/callback',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ApiContactSendRoute = ApiContactSendRouteImport.update({
   id: '/api/contact/send',
   path: '/api/contact/send',
@@ -67,6 +73,7 @@ export interface FileRoutesByFullPath {
   '/api/bank/details': typeof ApiBankDetailsRoute
   '/api/contact/payment-confirmation': typeof ApiContactPaymentConfirmationRoute
   '/api/contact/send': typeof ApiContactSendRoute
+  '/api/mpesa/callback': typeof ApiMpesaCallbackRoute
   '/api/mpesa/query': typeof ApiMpesaQueryRoute
   '/api/mpesa/stk-push': typeof ApiMpesaStkPushRoute
 }
@@ -77,6 +84,7 @@ export interface FileRoutesByTo {
   '/api/bank/details': typeof ApiBankDetailsRoute
   '/api/contact/payment-confirmation': typeof ApiContactPaymentConfirmationRoute
   '/api/contact/send': typeof ApiContactSendRoute
+  '/api/mpesa/callback': typeof ApiMpesaCallbackRoute
   '/api/mpesa/query': typeof ApiMpesaQueryRoute
   '/api/mpesa/stk-push': typeof ApiMpesaStkPushRoute
 }
@@ -88,6 +96,7 @@ export interface FileRoutesById {
   '/api/bank/details': typeof ApiBankDetailsRoute
   '/api/contact/payment-confirmation': typeof ApiContactPaymentConfirmationRoute
   '/api/contact/send': typeof ApiContactSendRoute
+  '/api/mpesa/callback': typeof ApiMpesaCallbackRoute
   '/api/mpesa/query': typeof ApiMpesaQueryRoute
   '/api/mpesa/stk-push': typeof ApiMpesaStkPushRoute
 }
@@ -100,6 +109,7 @@ export interface FileRouteTypes {
     | '/api/bank/details'
     | '/api/contact/payment-confirmation'
     | '/api/contact/send'
+    | '/api/mpesa/callback'
     | '/api/mpesa/query'
     | '/api/mpesa/stk-push'
   fileRoutesByTo: FileRoutesByTo
@@ -110,6 +120,7 @@ export interface FileRouteTypes {
     | '/api/bank/details'
     | '/api/contact/payment-confirmation'
     | '/api/contact/send'
+    | '/api/mpesa/callback'
     | '/api/mpesa/query'
     | '/api/mpesa/stk-push'
   id:
@@ -120,6 +131,7 @@ export interface FileRouteTypes {
     | '/api/bank/details'
     | '/api/contact/payment-confirmation'
     | '/api/contact/send'
+    | '/api/mpesa/callback'
     | '/api/mpesa/query'
     | '/api/mpesa/stk-push'
   fileRoutesById: FileRoutesById
@@ -131,6 +143,7 @@ export interface RootRouteChildren {
   ApiBankDetailsRoute: typeof ApiBankDetailsRoute
   ApiContactPaymentConfirmationRoute: typeof ApiContactPaymentConfirmationRoute
   ApiContactSendRoute: typeof ApiContactSendRoute
+  ApiMpesaCallbackRoute: typeof ApiMpesaCallbackRoute
   ApiMpesaQueryRoute: typeof ApiMpesaQueryRoute
   ApiMpesaStkPushRoute: typeof ApiMpesaStkPushRoute
 }
@@ -172,6 +185,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiMpesaQueryRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/mpesa/callback': {
+      id: '/api/mpesa/callback'
+      path: '/api/mpesa/callback'
+      fullPath: '/api/mpesa/callback'
+      preLoaderRoute: typeof ApiMpesaCallbackRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/api/contact/send': {
       id: '/api/contact/send'
       path: '/api/contact/send'
@@ -203,6 +223,7 @@ const rootRouteChildren: RootRouteChildren = {
   ApiBankDetailsRoute: ApiBankDetailsRoute,
   ApiContactPaymentConfirmationRoute: ApiContactPaymentConfirmationRoute,
   ApiContactSendRoute: ApiContactSendRoute,
+  ApiMpesaCallbackRoute: ApiMpesaCallbackRoute,
   ApiMpesaQueryRoute: ApiMpesaQueryRoute,
   ApiMpesaStkPushRoute: ApiMpesaStkPushRoute,
 }
