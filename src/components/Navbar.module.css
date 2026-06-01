@@ -12,14 +12,16 @@
 }
 
 .logo {
-  font-family: var(--font-serif);
-  font-size: 22px;
-  font-weight: 700;
-  color: var(--white);
-  letter-spacing: 0.5px;
+  display: flex;
+  align-items: center;
   text-decoration: none;
 }
 .logo span { color: var(--gold); }
+.logoImage {
+  display: block;
+  height: 36px;
+  width: auto;
+}
 
 .links {
   display: flex;

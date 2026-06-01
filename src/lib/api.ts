@@ -1,46 +1,47 @@
-// Lightweight fetch-based API client (no axios needed in the Worker runtime)
-const TIMEOUT = 30000
+import emailjs from "@emailjs/browser";
 
-async function request<T = any>(path: string, options: RequestInit = {}): Promise<{ data: T }> {
-  const ctrl = new AbortController()
-  const t = setTimeout(() => ctrl.abort(), TIMEOUT)
-  try {
-    const res = await fetch(`/api${path}`, {
-      ...options,
-      signal: ctrl.signal,
-      headers: { 'Content-Type': 'application/json', ...(options.headers || {}) },
-    })
-    const json = await res.json().catch(() => ({}))
-    if (!res.ok) {
-      const err: any = new Error(json?.message || `Request failed (${res.status})`)
-      err.response = { data: json, status: res.status }
-      throw err
-    }
-    return { data: json as T }
-  } catch (err: any) {
-    if (err.name === 'AbortError') {
-      err.message = 'Request timed out. Check your connection and try again.'
-    } else if (!err.response) {
-      err.message = err.message || 'Cannot reach the server.'
-    }
-    throw err
-  } finally {
-    clearTimeout(t)
+export type ContactPayload = {
+  name: string;
+  email: string;
+  phone?: string;
+  service?: string;
+  message: string;
+};
+
+export type EmailJSResponse = {
+  status: number;
+  text: string;
+};
+
+// Initialize EmailJS with your public key
+const initEmailJS = () => {
+  const publicKey = import.meta.env.VITE_EMAILJS_PUBLIC_KEY;
+  if (publicKey) {
+    emailjs.init(publicKey);
   }
-}
+};
 
-export const mpesaAPI = {
-  stkPush: (data: any) => request('/mpesa/stk-push', { method: 'POST', body: JSON.stringify(data) }),
-  queryStatus: (checkoutRequestId: string) =>
-    request('/mpesa/query', { method: 'POST', body: JSON.stringify({ checkoutRequestId }) }),
-}
+initEmailJS();
 
 export const contactAPI = {
-  send: (data: any) => request('/contact/send', { method: 'POST', body: JSON.stringify(data) }),
-  sendPaymentConfirmation: (data: any) =>
-    request('/contact/payment-confirmation', { method: 'POST', body: JSON.stringify(data) }),
-}
+  send: async (data: ContactPayload): Promise<EmailJSResponse> => {
+    const serviceId = import.meta.env.VITE_EMAILJS_SERVICE_ID;
+    const templateId = import.meta.env.VITE_EMAILJS_TEMPLATE_ID;
 
-export const bankAPI = {
-  getDetails: () => request('/bank/details'),
-}
+    if (!serviceId || !templateId) {
+      throw new Error("EmailJS configuration missing. Check environment variables.");
+    }
+
+    const response = await emailjs.send(serviceId, templateId, {
+      to_email: "hello.kavaro@gmail.com",
+      from_name: data.name,
+      from_email: data.email,
+      phone: data.phone || "Not provided",
+      service: data.service || "Not specified",
+      message: data.message,
+      reply_to: data.email,
+    });
+
+    return response as EmailJSResponse;
+  },
+};

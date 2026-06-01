@@ -11,13 +11,8 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as ServicesRouteImport } from './routes/services'
 import { Route as ContactRouteImport } from './routes/contact'
+import { Route as AdminRouteImport } from './routes/admin'
 import { Route as IndexRouteImport } from './routes/index'
-import { Route as ApiMpesaStkPushRouteImport } from './routes/api/mpesa.stk-push'
-import { Route as ApiMpesaQueryRouteImport } from './routes/api/mpesa.query'
-import { Route as ApiMpesaCallbackRouteImport } from './routes/api/mpesa.callback'
-import { Route as ApiContactSendRouteImport } from './routes/api/contact.send'
-import { Route as ApiContactPaymentConfirmationRouteImport } from './routes/api/contact.payment-confirmation'
-import { Route as ApiBankDetailsRouteImport } from './routes/api/bank.details'
 
 const ServicesRoute = ServicesRouteImport.update({
   id: '/services',
@@ -29,123 +24,49 @@ const ContactRoute = ContactRouteImport.update({
   path: '/contact',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AdminRoute = AdminRouteImport.update({
+  id: '/admin',
+  path: '/admin',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
-const ApiMpesaStkPushRoute = ApiMpesaStkPushRouteImport.update({
-  id: '/api/mpesa/stk-push',
-  path: '/api/mpesa/stk-push',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const ApiMpesaQueryRoute = ApiMpesaQueryRouteImport.update({
-  id: '/api/mpesa/query',
-  path: '/api/mpesa/query',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const ApiMpesaCallbackRoute = ApiMpesaCallbackRouteImport.update({
-  id: '/api/mpesa/callback',
-  path: '/api/mpesa/callback',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const ApiContactSendRoute = ApiContactSendRouteImport.update({
-  id: '/api/contact/send',
-  path: '/api/contact/send',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const ApiContactPaymentConfirmationRoute =
-  ApiContactPaymentConfirmationRouteImport.update({
-    id: '/api/contact/payment-confirmation',
-    path: '/api/contact/payment-confirmation',
-    getParentRoute: () => rootRouteImport,
-  } as any)
-const ApiBankDetailsRoute = ApiBankDetailsRouteImport.update({
-  id: '/api/bank/details',
-  path: '/api/bank/details',
-  getParentRoute: () => rootRouteImport,
-} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/admin': typeof AdminRoute
   '/contact': typeof ContactRoute
   '/services': typeof ServicesRoute
-  '/api/bank/details': typeof ApiBankDetailsRoute
-  '/api/contact/payment-confirmation': typeof ApiContactPaymentConfirmationRoute
-  '/api/contact/send': typeof ApiContactSendRoute
-  '/api/mpesa/callback': typeof ApiMpesaCallbackRoute
-  '/api/mpesa/query': typeof ApiMpesaQueryRoute
-  '/api/mpesa/stk-push': typeof ApiMpesaStkPushRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/admin': typeof AdminRoute
   '/contact': typeof ContactRoute
   '/services': typeof ServicesRoute
-  '/api/bank/details': typeof ApiBankDetailsRoute
-  '/api/contact/payment-confirmation': typeof ApiContactPaymentConfirmationRoute
-  '/api/contact/send': typeof ApiContactSendRoute
-  '/api/mpesa/callback': typeof ApiMpesaCallbackRoute
-  '/api/mpesa/query': typeof ApiMpesaQueryRoute
-  '/api/mpesa/stk-push': typeof ApiMpesaStkPushRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/admin': typeof AdminRoute
   '/contact': typeof ContactRoute
   '/services': typeof ServicesRoute
-  '/api/bank/details': typeof ApiBankDetailsRoute
-  '/api/contact/payment-confirmation': typeof ApiContactPaymentConfirmationRoute
-  '/api/contact/send': typeof ApiContactSendRoute
-  '/api/mpesa/callback': typeof ApiMpesaCallbackRoute
-  '/api/mpesa/query': typeof ApiMpesaQueryRoute
-  '/api/mpesa/stk-push': typeof ApiMpesaStkPushRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths:
-    | '/'
-    | '/contact'
-    | '/services'
-    | '/api/bank/details'
-    | '/api/contact/payment-confirmation'
-    | '/api/contact/send'
-    | '/api/mpesa/callback'
-    | '/api/mpesa/query'
-    | '/api/mpesa/stk-push'
+  fullPaths: '/' | '/admin' | '/contact' | '/services'
   fileRoutesByTo: FileRoutesByTo
-  to:
-    | '/'
-    | '/contact'
-    | '/services'
-    | '/api/bank/details'
-    | '/api/contact/payment-confirmation'
-    | '/api/contact/send'
-    | '/api/mpesa/callback'
-    | '/api/mpesa/query'
-    | '/api/mpesa/stk-push'
-  id:
-    | '__root__'
-    | '/'
-    | '/contact'
-    | '/services'
-    | '/api/bank/details'
-    | '/api/contact/payment-confirmation'
-    | '/api/contact/send'
-    | '/api/mpesa/callback'
-    | '/api/mpesa/query'
-    | '/api/mpesa/stk-push'
+  to: '/' | '/admin' | '/contact' | '/services'
+  id: '__root__' | '/' | '/admin' | '/contact' | '/services'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AdminRoute: typeof AdminRoute
   ContactRoute: typeof ContactRoute
   ServicesRoute: typeof ServicesRoute
-  ApiBankDetailsRoute: typeof ApiBankDetailsRoute
-  ApiContactPaymentConfirmationRoute: typeof ApiContactPaymentConfirmationRoute
-  ApiContactSendRoute: typeof ApiContactSendRoute
-  ApiMpesaCallbackRoute: typeof ApiMpesaCallbackRoute
-  ApiMpesaQueryRoute: typeof ApiMpesaQueryRoute
-  ApiMpesaStkPushRoute: typeof ApiMpesaStkPushRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -164,6 +85,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ContactRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/admin': {
+      id: '/admin'
+      path: '/admin'
+      fullPath: '/admin'
+      preLoaderRoute: typeof AdminRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -171,62 +99,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/api/mpesa/stk-push': {
-      id: '/api/mpesa/stk-push'
-      path: '/api/mpesa/stk-push'
-      fullPath: '/api/mpesa/stk-push'
-      preLoaderRoute: typeof ApiMpesaStkPushRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/api/mpesa/query': {
-      id: '/api/mpesa/query'
-      path: '/api/mpesa/query'
-      fullPath: '/api/mpesa/query'
-      preLoaderRoute: typeof ApiMpesaQueryRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/api/mpesa/callback': {
-      id: '/api/mpesa/callback'
-      path: '/api/mpesa/callback'
-      fullPath: '/api/mpesa/callback'
-      preLoaderRoute: typeof ApiMpesaCallbackRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/api/contact/send': {
-      id: '/api/contact/send'
-      path: '/api/contact/send'
-      fullPath: '/api/contact/send'
-      preLoaderRoute: typeof ApiContactSendRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/api/contact/payment-confirmation': {
-      id: '/api/contact/payment-confirmation'
-      path: '/api/contact/payment-confirmation'
-      fullPath: '/api/contact/payment-confirmation'
-      preLoaderRoute: typeof ApiContactPaymentConfirmationRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/api/bank/details': {
-      id: '/api/bank/details'
-      path: '/api/bank/details'
-      fullPath: '/api/bank/details'
-      preLoaderRoute: typeof ApiBankDetailsRouteImport
-      parentRoute: typeof rootRouteImport
-    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AdminRoute: AdminRoute,
   ContactRoute: ContactRoute,
   ServicesRoute: ServicesRoute,
-  ApiBankDetailsRoute: ApiBankDetailsRoute,
-  ApiContactPaymentConfirmationRoute: ApiContactPaymentConfirmationRoute,
-  ApiContactSendRoute: ApiContactSendRoute,
-  ApiMpesaCallbackRoute: ApiMpesaCallbackRoute,
-  ApiMpesaQueryRoute: ApiMpesaQueryRoute,
-  ApiMpesaStkPushRoute: ApiMpesaStkPushRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { startInstance } from './start.ts'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+    config: Awaited<ReturnType<typeof startInstance.getOptions>>
+  }
+}
