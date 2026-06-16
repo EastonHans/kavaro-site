@@ -35,29 +35,36 @@ type BookedCall = {
   id: string;
   date: string;
   url: string;
+  name?: string;
+  email?: string;
+  service?: string;
 };
 
-// Simple in-memory storage for demo (replace with real DB in production)
 const DEFAULT_LEADS: Lead[] = [];
 const DEFAULT_NOTES: Note[] = [];
 
 const ADMIN_PASSWORD = "hello@kavaro";
 
+// Calendly admin dashboard — shows your scheduled events, not the public booking page
+const CALENDLY_ADMIN_URL = "https://calendly.com/app/scheduled_events";
+
 function AdminDashboard() {
   const navigate = useNavigate();
   const [isAuthenticated, setIsAuthenticated] = useState<boolean>(() =>
     typeof window !== "undefined" &&
-    sessionStorage.getItem("kavaro_admin_auth") === "true",
+      sessionStorage.getItem("kavaro_admin_auth") === "true",
   );
   const [password, setPassword] = useState("");
   const [loginError, setLoginError] = useState<string | null>(null);
   const [leads, setLeads] = useState<Lead[]>(DEFAULT_LEADS);
   const [notes, setNotes] = useState<Note[]>(DEFAULT_NOTES);
   const [bookedCalls, setBookedCalls] = useState<BookedCall[]>([]);
-  const [activeTab, setActiveTab] = useState<"overview" | "inbox" | "notes">("overview");
+  const [activeTab, setActiveTab] = useState<"overview" | "inbox" | "notes" | "calls">("overview");
   const [searchQuery, setSearchQuery] = useState("");
+  const [statusFilter, setStatusFilter] = useState<"all" | "new" | "read" | "replied">("all");
   const [newNote, setNewNote] = useState({ title: "", content: "" });
   const [showNewNoteForm, setShowNewNoteForm] = useState(false);
+  const [expandedLead, setExpandedLead] = useState<string | null>(null);
 
   // Load data from localStorage on mount
   useEffect(() => {
@@ -68,50 +75,30 @@ function AdminDashboard() {
     const storedBookedCalls = localStorage.getItem("kavaro_booked_calls");
 
     if (storedLeads) {
-      try {
-        setLeads(JSON.parse(storedLeads));
-      } catch {
-        // Invalid JSON, use default
-      }
+      try { setLeads(JSON.parse(storedLeads)); } catch { /* ignore */ }
     }
-
     if (storedNotes) {
-      try {
-        setNotes(JSON.parse(storedNotes));
-      } catch {
-        // Invalid JSON, use default
-      }
+      try { setNotes(JSON.parse(storedNotes)); } catch { /* ignore */ }
     }
-
     if (storedBookedCalls) {
-      try {
-        setBookedCalls(JSON.parse(storedBookedCalls));
-      } catch {
-        // Invalid JSON, use default
-      }
+      try { setBookedCalls(JSON.parse(storedBookedCalls)); } catch { /* ignore */ }
     }
   }, [isAuthenticated]);
 
-  // Save leads to localStorage whenever they change
   useEffect(() => {
     if (!isAuthenticated) return;
     localStorage.setItem("kavaro_leads", JSON.stringify(leads));
   }, [leads, isAuthenticated]);
 
-  // Save notes to localStorage whenever they change
   useEffect(() => {
     if (!isAuthenticated) return;
     localStorage.setItem("kavaro_notes", JSON.stringify(notes));
   }, [notes, isAuthenticated]);
 
-  // Save booked calls to localStorage whenever they change
   useEffect(() => {
     if (!isAuthenticated) return;
     localStorage.setItem("kavaro_booked_calls", JSON.stringify(bookedCalls));
   }, [bookedCalls, isAuthenticated]);
-
-  const calendlyUrl =
-    import.meta.env.VITE_CALENDLY_URL || "https://calendly.com/hello-kavaro";
 
   const stats = {
     totalLeads: leads.length,
@@ -122,33 +109,36 @@ function AdminDashboard() {
     bookedCalls: bookedCalls.length,
   };
 
-  const filteredLeads = leads.filter((lead) => {
-    const query = searchQuery.toLowerCase();
-    return (
-      lead.name.toLowerCase().includes(query) ||
-      lead.email.toLowerCase().includes(query) ||
-      (lead.service && lead.service.toLowerCase().includes(query))
-    );
-  });
+  const filteredLeads = leads
+    .filter((lead) => {
+      if (statusFilter !== "all" && lead.status !== statusFilter) return false;
+      const query = searchQuery.toLowerCase();
+      return (
+        !query ||
+        lead.name.toLowerCase().includes(query) ||
+        lead.email.toLowerCase().includes(query) ||
+        (lead.service && lead.service.toLowerCase().includes(query)) ||
+        lead.message.toLowerCase().includes(query)
+      );
+    })
+    // newest first
+    .sort((a, b) => Number(b.id) - Number(a.id));
 
   function handleMarkRead(id: string) {
-    setLeads(
-      leads.map((l) =>
-        l.id === id ? { ...l, status: "read" as const } : l,
-      ),
-    );
+    setLeads(leads.map((l) => (l.id === id ? { ...l, status: "read" as const } : l)));
   }
 
   function handleMarkReplied(id: string) {
-    setLeads(
-      leads.map((l) =>
-        l.id === id ? { ...l, status: "replied" as const } : l,
-      ),
-    );
+    setLeads(leads.map((l) => (l.id === id ? { ...l, status: "replied" as const } : l)));
   }
 
   function handleDeleteLead(id: string) {
     setLeads(leads.filter((l) => l.id !== id));
+    if (expandedLead === id) setExpandedLead(null);
+  }
+
+  function handleDeleteCall(id: string) {
+    setBookedCalls(bookedCalls.filter((c) => c.id !== id));
   }
 
   function handleAddNote() {
@@ -156,14 +146,12 @@ function AdminDashboard() {
       alert("Please fill in both title and content");
       return;
     }
-
     const note: Note = {
       id: Date.now().toString(),
       title: newNote.title,
       content: newNote.content,
       date: new Date().toLocaleDateString(),
     };
-
     setNotes([note, ...notes]);
     setNewNote({ title: "", content: "" });
     setShowNewNoteForm(false);
@@ -175,7 +163,6 @@ function AdminDashboard() {
 
   function handleLogin(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
-
     if (password === ADMIN_PASSWORD) {
       sessionStorage.setItem("kavaro_admin_auth", "true");
       setIsAuthenticated(true);
@@ -183,7 +170,6 @@ function AdminDashboard() {
       setPassword("");
       return;
     }
-
     setLoginError("Incorrect password. Please try again.");
   }
 
@@ -224,7 +210,7 @@ function AdminDashboard() {
       <div className={styles.header}>
         <div className={styles.headerContent}>
           <h1>Admin Dashboard</h1>
-          <p>Manage inquiries and project notes</p>
+          <p>Manage inquiries, booked calls, and project notes</p>
         </div>
         <button className={styles.logoutBtn} onClick={handleLogout}>
           ← Logout
@@ -242,7 +228,13 @@ function AdminDashboard() {
           className={`${styles.tab} ${activeTab === "inbox" ? styles.active : ""}`}
           onClick={() => setActiveTab("inbox")}
         >
-          Inbox ({stats.newLeads})
+          Inbox {stats.newLeads > 0 && <span className={styles.tabBadge}>{stats.newLeads}</span>}
+        </button>
+        <button
+          className={`${styles.tab} ${activeTab === "calls" ? styles.active : ""}`}
+          onClick={() => setActiveTab("calls")}
+        >
+          Booked Calls {stats.bookedCalls > 0 && <span className={styles.tabBadge}>{stats.bookedCalls}</span>}
         </button>
         <button
           className={`${styles.tab} ${activeTab === "notes" ? styles.active : ""}`}
@@ -252,7 +244,7 @@ function AdminDashboard() {
         </button>
       </div>
 
-      {/* OVERVIEW TAB */}
+      {/* ── OVERVIEW TAB ── */}
       {activeTab === "overview" && (
         <div className={styles.content}>
           <div className={styles.statsGrid}>
@@ -260,7 +252,7 @@ function AdminDashboard() {
               <div className={styles.statLabel}>Total Leads</div>
               <div className={styles.statValue}>{stats.totalLeads}</div>
             </div>
-            <div className={styles.statCard}>
+            <div className={`${styles.statCard} ${styles.statNew}`}>
               <div className={styles.statLabel}>New</div>
               <div className={styles.statValue}>{stats.newLeads}</div>
             </div>
@@ -268,55 +260,111 @@ function AdminDashboard() {
               <div className={styles.statLabel}>Read</div>
               <div className={styles.statValue}>{stats.readLeads}</div>
             </div>
-            <div className={styles.statCard}>
+            <div className={`${styles.statCard} ${styles.statReplied}`}>
               <div className={styles.statLabel}>Replied</div>
               <div className={styles.statValue}>{stats.repliedLeads}</div>
             </div>
             <div className={styles.statCard}>
-              <div className={styles.statLabel}>Sent Emails</div>
+              <div className={styles.statLabel}>Emails Sent</div>
               <div className={styles.statValue}>{stats.sentEmails}</div>
             </div>
-            <div className={styles.statCard}>
+            <div className={`${styles.statCard} ${styles.statCalls}`}>
               <div className={styles.statLabel}>Booked Calls</div>
               <div className={styles.statValue}>{stats.bookedCalls}</div>
             </div>
           </div>
 
+          {/* Recent inquiries — richer preview */}
           <div className={styles.recentLeads}>
-            <h2>Recent Inquiries</h2>
+            <div className={styles.sectionHeadRow}>
+              <h2>Recent Inquiries</h2>
+              {leads.length > 0 && (
+                <button className={styles.viewAll} onClick={() => setActiveTab("inbox")}>
+                  View all →
+                </button>
+              )}
+            </div>
             {leads.length === 0 ? (
               <p className={styles.emptyState}>No inquiries yet</p>
             ) : (
               <div className={styles.leadsList}>
-                {leads.slice(0, 5).map((lead) => (
+                {[...leads].sort((a, b) => Number(b.id) - Number(a.id)).slice(0, 5).map((lead) => (
                   <div key={lead.id} className={`${styles.leadItem} ${styles[lead.status]}`}>
-                    <div>
-                      <strong>{lead.name}</strong>
-                      <p>{lead.email}</p>
-                      {lead.service && <span className={styles.service}>{lead.service}</span>}
+                    <div className={styles.leadItemLeft}>
+                      <div className={styles.leadItemMeta}>
+                        <strong>{lead.name}</strong>
+                        <span className={`${styles.statusPill} ${styles[`pill_${lead.status}`]}`}>
+                          {lead.status}
+                        </span>
+                        {lead.emailSent && (
+                          <span className={styles.emailSentBadge}>✉ sent</span>
+                        )}
+                      </div>
+                      <a href={`mailto:${lead.email}`} className={styles.leadEmail}>
+                        {lead.email}
+                      </a>
+                      <div className={styles.leadTags}>
+                        {lead.service && <span className={styles.service}>{lead.service}</span>}
+                        {lead.phone && (
+                          <a href={`tel:${lead.phone}`} className={styles.phoneTag}>
+                            📞 {lead.phone}
+                          </a>
+                        )}
+                      </div>
                     </div>
-                    <div className={styles.date}>{lead.date}</div>
+                    <div className={styles.leadItemRight}>
+                      <div className={styles.date}>{lead.date}</div>
+                      <a href={`mailto:${lead.email}?subject=Re: Your Kavaro Inquiry`} className={styles.replyLink}>
+                        Reply →
+                      </a>
+                    </div>
                   </div>
                 ))}
               </div>
             )}
           </div>
 
+          {/* Calendly section — links to YOUR admin dashboard, not the public booking page */}
           <div className={styles.calendarOverview}>
-            <h2>Calendly Schedule</h2>
-            <p>
-              View the live booking schedule and all discovery call requests.
-            </p>
-            <a href={calendlyUrl} target="_blank" rel="noreferrer" className={styles.scheduleLink}>
-              Open Calendly Schedule
-            </a>
+            <div className={styles.calHeader}>
+              <div>
+                <h2>Calendly — Scheduled Events</h2>
+                <p>
+                  Open your Calendly dashboard to see all upcoming and past discovery calls booked
+                  by clients.
+                </p>
+              </div>
+              <a
+                href={CALENDLY_ADMIN_URL}
+                target="_blank"
+                rel="noreferrer"
+                className={styles.scheduleLink}
+              >
+                📅 Open My Calendly Dashboard
+              </a>
+            </div>
+
             {bookedCalls.length > 0 && (
-              <div className={styles.bookedCalls}>
-                <h3>Recent Booked Calls</h3>
+              <div className={styles.bookedCallsPreview}>
+                <div className={styles.sectionHeadRow}>
+                  <h3>Recent Site Bookings</h3>
+                  <button className={styles.viewAll} onClick={() => setActiveTab("calls")}>
+                    View all →
+                  </button>
+                </div>
                 <ul>
-                  {bookedCalls.slice(-5).reverse().map((call) => (
-                    <li key={call.id}>
-                      {call.date}
+                  {[...bookedCalls].reverse().slice(0, 3).map((call) => (
+                    <li key={call.id} className={styles.callPreviewItem}>
+                      <div className={styles.callPreviewLeft}>
+                        <strong>{call.name || "Anonymous"}</strong>
+                        {call.email && (
+                          <a href={`mailto:${call.email}`} className={styles.callEmail}>
+                            {call.email}
+                          </a>
+                        )}
+                        {call.service && <span className={styles.service}>{call.service}</span>}
+                      </div>
+                      <div className={styles.date}>{call.date}</div>
                     </li>
                   ))}
                 </ul>
@@ -326,80 +374,183 @@ function AdminDashboard() {
         </div>
       )}
 
-      {/* INBOX TAB */}
+      {/* ── INBOX TAB ── */}
       {activeTab === "inbox" && (
         <div className={styles.content}>
-          <div className={styles.searchBar}>
+          <div className={styles.inboxControls}>
             <input
               type="text"
-              placeholder="Search by name, email, or service..."
+              className={styles.searchInput}
+              placeholder="Search by name, email, service, or message..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
             />
+            <div className={styles.filterTabs}>
+              {(["all", "new", "read", "replied"] as const).map((f) => (
+                <button
+                  key={f}
+                  className={`${styles.filterBtn} ${statusFilter === f ? styles.filterActive : ""}`}
+                  onClick={() => setStatusFilter(f)}
+                >
+                  {f === "all" ? `All (${leads.length})` : `${f} (${leads.filter((l) => l.status === f).length})`}
+                </button>
+              ))}
+            </div>
           </div>
 
           {filteredLeads.length === 0 ? (
             <p className={styles.emptyState}>
-              {searchQuery ? "No matching inquiries" : "No inquiries yet"}
+              {searchQuery || statusFilter !== "all" ? "No matching inquiries" : "No inquiries yet"}
             </p>
           ) : (
             <div className={styles.inboxList}>
-              {filteredLeads.map((lead) => (
-                <div key={lead.id} className={`${styles.inboxCard} ${styles[lead.status]}`}>
-                  <div className={styles.cardHeader}>
-                    <div>
-                      <h3>{lead.name}</h3>
-                      <p className={styles.email}>{lead.email}</p>
+              {filteredLeads.map((lead) => {
+                const isExpanded = expandedLead === lead.id;
+                return (
+                  <div key={lead.id} className={`${styles.inboxCard} ${styles[lead.status]}`}>
+                    <div
+                      className={styles.cardHeader}
+                      onClick={() => setExpandedLead(isExpanded ? null : lead.id)}
+                      style={{ cursor: "pointer" }}
+                    >
+                      <div className={styles.cardHeaderLeft}>
+                        <h3>{lead.name}</h3>
+                        <div className={styles.cardMeta}>
+                          <a
+                            href={`mailto:${lead.email}`}
+                            className={styles.email}
+                            onClick={(e) => e.stopPropagation()}
+                          >
+                            {lead.email}
+                          </a>
+                          {lead.phone && (
+                            <a
+                              href={`tel:${lead.phone}`}
+                              className={styles.phoneLink}
+                              onClick={(e) => e.stopPropagation()}
+                            >
+                              📞 {lead.phone}
+                            </a>
+                          )}
+                        </div>
+                        {lead.service && (
+                          <span className={styles.service}>{lead.service}</span>
+                        )}
+                      </div>
+                      <div className={styles.cardHeaderRight}>
+                        <span className={`${styles.statusBadge} ${styles[`badge_${lead.status}`]}`}>
+                          {lead.status}
+                        </span>
+                        {lead.emailSent && (
+                          <span className={styles.emailSentBadge}>✉ email sent</span>
+                        )}
+                        <span className={styles.date}>{lead.date}</span>
+                        <span className={styles.expandIcon}>{isExpanded ? "▲" : "▼"}</span>
+                      </div>
                     </div>
-                    <div className={styles.statusBadge}>{lead.status}</div>
+
+                    {isExpanded && (
+                      <>
+                        <div className={styles.messageBlock}>
+                          <span className={styles.messageLabel}>Message</span>
+                          <p className={styles.messageText}>{lead.message}</p>
+                        </div>
+
+                        <div className={styles.cardFooter}>
+                          <a
+                            href={`mailto:${lead.email}?subject=Re: Your Kavaro Inquiry`}
+                            className={`${styles.btn} ${styles.btnEmail}`}
+                          >
+                            ✉ Reply by Email
+                          </a>
+                          <div className={styles.actions}>
+                            {lead.status === "new" && (
+                              <button
+                                className={`${styles.btn} ${styles.btnRead}`}
+                                onClick={() => handleMarkRead(lead.id)}
+                              >
+                                Mark Read
+                              </button>
+                            )}
+                            {lead.status !== "replied" && (
+                              <button
+                                className={`${styles.btn} ${styles.btnReplied}`}
+                                onClick={() => handleMarkReplied(lead.id)}
+                              >
+                                Mark Replied
+                              </button>
+                            )}
+                            <button
+                              className={`${styles.btn} ${styles.btnDelete}`}
+                              onClick={() => handleDeleteLead(lead.id)}
+                            >
+                              Delete
+                            </button>
+                          </div>
+                        </div>
+                      </>
+                    )}
                   </div>
+                );
+              })}
+            </div>
+          )}
+        </div>
+      )}
 
-                  {lead.phone && (
-                    <p className={styles.detail}>
-                      <strong>Phone:</strong> {lead.phone}
-                    </p>
-                  )}
+      {/* ── BOOKED CALLS TAB ── */}
+      {activeTab === "calls" && (
+        <div className={styles.content}>
+          <div className={styles.callsHeader}>
+            <div>
+              <h2>Booked Discovery Calls</h2>
+              <p className={styles.callsSubtitle}>
+                These are clients who clicked the Calendly link on your site. Open your Calendly
+                dashboard to confirm actual scheduled times.
+              </p>
+            </div>
+            <a
+              href={CALENDLY_ADMIN_URL}
+              target="_blank"
+              rel="noreferrer"
+              className={styles.scheduleLink}
+            >
+              📅 Open Calendly Dashboard
+            </a>
+          </div>
 
-                  {lead.service && (
-                    <p className={styles.detail}>
-                      <strong>Service:</strong> {lead.service}
-                    </p>
-                  )}
-
-                  <p className={styles.message}>
-                    <strong>Message:</strong>
-                    <br />
-                    {lead.message}
-                  </p>
-
-                  <div className={styles.cardFooter}>
-                    <span className={styles.date}>{lead.date}</span>
-                    <div className={styles.actions}>
-                      {lead.status === "new" && (
-                        <button
-                          className={`${styles.btn} ${styles.btnRead}`}
-                          onClick={() => handleMarkRead(lead.id)}
-                        >
-                          Mark Read
-                        </button>
-                      )}
-
-                      {lead.status !== "replied" && (
-                        <button
-                          className={`${styles.btn} ${styles.btnReplied}`}
-                          onClick={() => handleMarkReplied(lead.id)}
-                        >
-                          Mark Replied
-                        </button>
-                      )}
-
-                      <button
-                        className={`${styles.btn} ${styles.btnDelete}`}
-                        onClick={() => handleDeleteLead(lead.id)}
-                      >
-                        Delete
-                      </button>
+          {bookedCalls.length === 0 ? (
+            <p className={styles.emptyState}>No booked calls recorded yet</p>
+          ) : (
+            <div className={styles.callsList}>
+              {[...bookedCalls].reverse().map((call) => (
+                <div key={call.id} className={styles.callCard}>
+                  <div className={styles.callCardLeft}>
+                    <div className={styles.callAvatar}>
+                      {(call.name || "?")[0].toUpperCase()}
                     </div>
+                    <div className={styles.callInfo}>
+                      <strong className={styles.callName}>{call.name || "Anonymous visitor"}</strong>
+                      {call.email ? (
+                        <a href={`mailto:${call.email}?subject=Your Discovery Call — Kavaro`} className={styles.callEmailLink}>
+                          {call.email}
+                        </a>
+                      ) : (
+                        <span className={styles.callNoEmail}>No email captured</span>
+                      )}
+                      {call.service && (
+                        <span className={styles.service}>{call.service}</span>
+                      )}
+                    </div>
+                  </div>
+                  <div className={styles.callCardRight}>
+                    <span className={styles.callDate}>{call.date}</span>
+                    <button
+                      className={`${styles.btn} ${styles.btnDelete}`}
+                      onClick={() => handleDeleteCall(call.id)}
+                    >
+                      Remove
+                    </button>
                   </div>
                 </div>
               ))}
@@ -408,7 +559,7 @@ function AdminDashboard() {
         </div>
       )}
 
-      {/* NOTES TAB */}
+      {/* ── NOTES TAB ── */}
       {activeTab === "notes" && (
         <div className={styles.content}>
           <div className={styles.notesHeader}>

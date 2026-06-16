@@ -93,6 +93,16 @@ const services = [
   },
 ];
 
+function registerBookedCall(calendlyUrl: string) {
+  const calls = JSON.parse(localStorage.getItem("kavaro_booked_calls") || "[]");
+  calls.push({
+    id: Date.now().toString(),
+    date: new Date().toLocaleString(),
+    url: calendlyUrl,
+  });
+  localStorage.setItem("kavaro_booked_calls", JSON.stringify(calls));
+}
+
 function Services() {
   const calendlyUrl = import.meta.env.VITE_CALENDLY_URL || "https://calendly.com/hello-kavaro";
 
@@ -133,7 +143,13 @@ function Services() {
                   <span className={styles.priceSub}>{s.usd}</span>
                 </div>
                 <div className={styles.cardBtns}>
-                  <a href={calendlyUrl} target="_blank" rel="noreferrer" className="btn-primary">
+                  <a
+                    href={calendlyUrl}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="btn-primary"
+                    onClick={() => registerBookedCall(calendlyUrl)}
+                  >
                     Book Discovery Call
                   </a>
                   <Link to="/contact" className="btn-navy">

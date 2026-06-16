@@ -36,7 +36,7 @@ type FormState = {
 };
 
 type Status = {
-  type: "success" | "error" | "warning";
+  type: "success" | "error";
   msg: string;
 };
 
@@ -104,24 +104,20 @@ function Contact() {
 
         if (response.status === 200) {
           lead.emailSent = true;
-          setStatus({
-            type: "success",
-            msg: "Thank you! Your inquiry has been received. We'll respond within 24 hours.",
-          });
         } else {
           throw new Error("Failed to send message. Please try again.");
         }
-      } else {
-        setStatus({
-          type: "warning",
-          msg: "EmailJS is not configured. Your inquiry has been saved locally for the admin dashboard.",
-        });
       }
 
       const existingLeads = localStorage.getItem("kavaro_leads");
       const leadsArray = existingLeads ? JSON.parse(existingLeads) : [];
       leadsArray.push(lead);
       localStorage.setItem("kavaro_leads", JSON.stringify(leadsArray));
+
+      setStatus({
+        type: "success",
+        msg: "Thank you! Your inquiry has been received. We'll respond within 24 hours.",
+      });
 
       setForm({
         name: "",
@@ -213,11 +209,7 @@ function Contact() {
           {status && (
             <div
               className={`${styles.alert} ${
-                status.type === "success"
-                  ? styles.alertSuccess
-                  : status.type === "warning"
-                    ? styles.alertWarning
-                    : styles.alertError
+                status.type === "success" ? styles.alertSuccess : styles.alertError
               }`}
               role="alert"
             >
@@ -252,6 +244,10 @@ function Contact() {
                     id: Date.now().toString(),
                     date: new Date().toLocaleString(),
                     url: calendlyUrl,
+                    // capture whatever the user has typed into the form at click time
+                    name: form.name.trim() || undefined,
+                    email: form.email.trim() || undefined,
+                    service: form.service.trim() || undefined,
                   });
                   localStorage.setItem("kavaro_booked_calls", JSON.stringify(calls));
                 }}

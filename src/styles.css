@@ -31,29 +31,63 @@ a { text-decoration: none; color: inherit; }
 input, textarea, select { font-family: var(--font-sans); }
 
 .btn-primary {
-  background: var(--gold); color: var(--navy);
-  padding: 14px 32px; font-size: 14px; font-weight: 500;
-  border: none; letter-spacing: 0.5px; transition: background 0.2s; cursor: pointer;
-  display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+  background: var(--gold);
+  color: var(--navy);
+  padding: 14px 32px;
+  font-size: 14px;
+  font-weight: 600;
+  border: none;
+  letter-spacing: 0.5px;
+  transition: background 0.2s;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  text-decoration: none;
 }
 .btn-primary:hover { background: var(--gold-light); }
 .btn-primary:disabled { opacity: 0.6; cursor: not-allowed; }
 
+/* Outlined button — works on both dark (navy) and light (white) backgrounds */
 .btn-secondary {
-  background: transparent; color: var(--white);
-  padding: 14px 32px; font-size: 14px; font-weight: 400;
-  border: 1px solid var(--navy-border); letter-spacing: 0.5px; transition: all 0.2s; cursor: pointer;
-  display: inline-flex; align-items: center; justify-content: center;
+  background: transparent;
+  color: var(--gold);
+  padding: 14px 32px;
+  font-size: 14px;
+  font-weight: 500;
+  border: 1px solid var(--gold);
+  letter-spacing: 0.5px;
+  transition: background 0.2s, color 0.2s, border-color 0.2s;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
 }
-.btn-secondary:hover { border-color: var(--grey-light); color: var(--grey-light); }
+.btn-secondary:hover {
+  background: var(--gold);
+  color: var(--navy);
+  border-color: var(--gold);
+}
 
+/* Solid navy button — for use on white/light backgrounds */
 .btn-navy {
-  background: var(--navy); color: var(--white);
-  padding: 14px 32px; font-size: 14px; font-weight: 500;
-  border: 1px solid var(--navy-border); letter-spacing: 0.5px; transition: all 0.2s; cursor: pointer;
-  display: inline-flex; align-items: center; justify-content: center;
+  background: var(--navy);
+  color: var(--white);
+  padding: 14px 32px;
+  font-size: 14px;
+  font-weight: 500;
+  border: 1px solid var(--navy-border);
+  letter-spacing: 0.5px;
+  transition: background 0.2s, border-color 0.2s;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
 }
-.btn-navy:hover { background: var(--navy-mid); }
+.btn-navy:hover { background: var(--navy-mid); border-color: var(--navy-light); }
 
 .section-label {
   font-size: 11px; color: var(--gold); letter-spacing: 2px;

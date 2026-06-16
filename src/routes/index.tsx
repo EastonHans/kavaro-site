@@ -439,7 +439,6 @@ function Home() {
                 <Link
                   to="/services"
                   className="btn-secondary"
-                  style={{ fontSize: 12, padding: "10px 18px" }}
                 >
                   Enquire
                 </Link>
