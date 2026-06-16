@@ -1,4 +1,4 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+﻿import { createFileRoute, Link } from "@tanstack/react-router";
 import { useState } from "react";
 import founderImg from "@/assets/founder.png";
 import styles from "./Home.module.css";
@@ -17,7 +17,7 @@ const services = [
   {
     num: "01",
     title: "Web Development",
-    desc: "Modern, AI-ready websites and platforms — landing pages, booking flows and dashboards built with care.",
+    desc: "Modern, AI-ready websites and platforms - landing pages, booking flows and dashboards built with care.",
     tag: "React · Node.js · TypeScript",
   },
   {
@@ -29,7 +29,7 @@ const services = [
   {
     num: "03",
     title: "UI / UX Design",
-    desc: "Interfaces designed by a trained product designer — clear flows, real research, no fluff.",
+    desc: "Interfaces designed by a trained product designer - clear flows, real research, no fluff.",
     tag: "Figma · Prototyping · Research",
   },
   {
@@ -45,7 +45,7 @@ export const Route = createFileRoute("/")({
   component: Home,
   head: () => ({
     meta: [
-      { title: "Kavaro Agency — Digital Product & Web Development Agency" },
+      { title: "Kavaro Agency - Digital Product & Web Development Agency" },
 
       {
         name: "description",
@@ -55,7 +55,7 @@ export const Route = createFileRoute("/")({
 
       {
         property: "og:title",
-        content: "Kavaro Agency — Digital Product & Web Development Agency",
+        content: "Kavaro Agency - Digital Product & Web Development Agency",
       },
 
       {
@@ -115,11 +115,11 @@ const skills = [
 const whyUs = [
   {
     title: "Design-Led Team",
-    desc: "Every project is shaped by our combined skills in UI/UX design, development, and product thinking — not templates or shortcuts.",
+    desc: "Every project is shaped by our combined skills in UI/UX design, development, and product thinking - not templates or shortcuts.",
   },
   {
     title: "Hands-On Collaboration",
-    desc: "Clients work directly with our team — designers and developers — ensuring clear communication and fast execution without unnecessary layers.",
+    desc: "Clients work directly with our team - designers and developers - ensuring clear communication and fast execution without unnecessary layers.",
   },
   {
     title: "Remote-First Agency",
@@ -127,16 +127,16 @@ const whyUs = [
   },
   {
     title: "AI-Ready Builds",
-    desc: "Our team integrates modern AI capabilities into products — from chat systems to automation and smart workflows — where they actually add value.",
+    desc: "Our team integrates modern AI capabilities into products - from chat systems to automation and smart workflows - where they actually add value.",
   },
 ];
 
 const projects = [
   {
-    title: "Healthcare Booking — Concept",
+    title: "Healthcare Booking - Concept",
     type: "Concept Website",
     problem:
-      "Local clinics in Nairobi rely on phone calls for appointments — patients wait, lines drop, no-shows are high.",
+      "Local clinics in Nairobi rely on phone calls for appointments - patients wait, lines drop, no-shows are high.",
     solution:
       "A clean booking site with doctor profiles, time-slot picker, SMS reminders and a simple admin view.",
     tools: ["Figma", "React", "Tailwind", "Supabase"],
@@ -146,7 +146,7 @@ const projects = [
     image: splashscreeImg,
   },
   {
-    title: "Smargo — Farm-to-Institution Marketplace",
+    title: "Smargo - Farm-to-Institution Marketplace",
     type: "Web Development Project",
     problem:
       "Farmers often rely on middlemen who reduce their earnings, while institutions like schools and hospitals struggle to access fresh produce directly from reliable suppliers.",
@@ -173,10 +173,10 @@ const projects = [
     link: "https://www.figma.com/proto/2DaNeg6c0ujjkAvPKUCtOt/Carol-s-Smart-App-Project?node-id=8-107&t=5xigjoMiqZYb2100-1",
   },
   {
-    title: "AI Customer Assistant — Demo",
+    title: "AI Customer Assistant - Demo",
     type: "React + AI Project",
     problem:
-      "Service businesses repeat the same 20 questions all day — pricing, hours, location, booking.",
+      "Service businesses repeat the same 20 questions all day - pricing, hours, location, booking.",
     solution:
       "Embeddable chat widget powered by an LLM, trained on a business FAQ, with email and Calendly handoff.",
     tools: ["React", "OpenAI API", "Node.js", "TypeScript"],
@@ -195,7 +195,7 @@ const steps = [
   {
     num: "02",
     title: "Proposal",
-    desc: "Clear scope, timeline and pricing — sent within 48 hours.",
+    desc: "Clear scope, timeline and pricing - sent within 48 hours.",
   },
   {
     num: "03",
@@ -233,7 +233,7 @@ function Home() {
             A Remote Digital Agency Building <em>Websites</em> &amp; Digital Tools
           </h1>
           <p>
-            Kavaro is a remote agency for growing businesses — landing pages, business websites,
+            Kavaro is a remote agency for growing businesses - landing pages, business websites,
             booking systems, dashboards and AI-enhanced features. Designed by a trained product
             designer, built with modern tools, shipped honestly.
           </p>
@@ -296,10 +296,10 @@ function Home() {
             This Started With <em>Our Founder's Dad</em>.
           </h2>
           <p className={styles.storyP}>
-            Our founder's father was a dialysis patient. For years she watched him travel to the hospital just to book a session, ask a question, get a refill, or confirm a result � things a simple website or booking page could have handled in seconds. The clinic had no online presence. The pharmacy had no online presence. Most of the services he depended on had no digital front door at all.
+            Our founder's father was a dialysis patient. For years she watched him travel to the hospital just to book a session, ask a question, get a refill, or confirm a result. Things a simple website or booking page could have handled in seconds. The clinic had no online presence. The pharmacy had no online presence. Most of the services he depended on had no digital front door at all.
           </p>
           <p className={styles.storyP}>
-            He has since passed on, but the gap he lived with every day is still here � and it's still hurting families like ours. So many local businesses � clinics, pharmacies, schools, small service providers � are invisible online, and the people who need them suffer for it. Kavaro exists in his memory, to change that one honest website at a time.
+            He has since passed on, but the gap he lived with every day is still here. It's still hurting families like ours. So many local businesses, clinics, pharmacies, schools and small service providers, are invisible online, and the people who need them suffer for it. Kavaro exists in his memory, to change that one honest website at a time.
           </p>
           <p className={styles.storyP}>
             I’m a UI/UX Product Designer and Creative Director at Kavaro, currently studying
@@ -322,15 +322,15 @@ function Home() {
           <div className={styles.vmCard}>
             <h3>Our Vision</h3>
             <p>
-              A world where every growing business — from a Nairobi clinic to a remote-first startup
-              — has a digital experience that genuinely works for the people using it.
+              A world where every growing business - from a Nairobi clinic to a remote-first startup
+              - has a digital experience that genuinely works for the people using it.
             </p>
           </div>
           <div className={styles.vmCard}>
             <h3>Our Mission</h3>
             <p>
               Design and build modern websites and digital tools that help growing businesses serve
-              their customers better — combining product-design thinking with hands-on engineering.
+              their customers better - combining product-design thinking with hands-on engineering.
             </p>
           </div>
         </div>
@@ -344,7 +344,7 @@ function Home() {
 
         <p className={styles.secSub}>
           Kavaro is a remote digital agency of UI/UX designers and full-stack developers building
-          modern digital products through design and code. We grow intentionally — through real
+          modern digital products through design and code. We grow intentionally - through real
           projects, collaboration, and continuous learning.
         </p>
         <div className={styles.teamGrid}>
@@ -352,25 +352,25 @@ function Home() {
             {
               name: "Caroline Nyawira",
               role: "Founder ·Creative Director",
-              bio: "Founded Kavaro to close the digital gap for local businesses. Leads product strategy, UI/UX design and client vision � with a background in cybersecurity and generative AI.",
+              bio: "Founded Kavaro to close the digital gap for local businesses. Leads product strategy, UI/UX design and client vision, with a background in cybersecurity and generative AI.",
               image: carolineImg,
             },
             {
               name: "Hezron Sande",
               role: "Graphic Designer · Web Developer",
-              bio: "The visual voice of the team. Brings brand identities and marketing assets to life � from logos to pitch decks � with an eye for detail that makes things feel intentional.",
+              bio: "The visual voice of the team. Brings brand identities and marketing assets to life, from logos to pitch decks, with an eye for detail that makes things feel intentional.",
               image: hezronImg,
             },
             {
               name: "Easton Hans",
               role: "Web Developer · UI/UX Designer",
-              bio: "Turns designs into fast, accessible, production-ready code. Specialises in React and component architecture � if it runs in a browser, he cares about how well it runs.",
+              bio: "Turns designs into fast, accessible, production-ready code. Specialises in React and component architecture. If it runs in a browser, he cares about how well it runs.",
               image: eastonImg,
             },
             {
               name: "Brenda Chebet",
               role: "Web Developer · UI/UX Designer",
-              bio: "Bridges design and development � equally comfortable in Figma and a codebase. Brings a user-first perspective to every interface she touches.",
+              bio: "Bridges design and development � equally comfortable in Figma and a codebase. Brings a user-first perspective to every interface she touches.",
               image: brendaImg,
             },
           ].map((m) => (
@@ -393,7 +393,7 @@ function Home() {
           Built for Businesses That <em>Serve People</em>
         </h2>
         <p className={styles.secSub}>
-          Small and growing businesses — from local clinics to remote-first startups. If your
+          Small and growing businesses - from local clinics to remote-first startups. If your
           customers need to find, book or buy from you, we can help.
         </p>
         <div className={styles.indGrid}>
@@ -411,7 +411,7 @@ function Home() {
         <div className="section-label">What We Do</div>
         <h2 className={styles.secH}>What Kavaro Can Build for You Today</h2>
         <p className={styles.secSub}>
-          Real, commercially-useful work at the agency's current stage — websites, booking systems,
+          Real, commercially-useful work at the agency's current stage - websites, booking systems,
           dashboards, CRUD apps, AI-enhanced features and brand systems.
         </p>
         <div className={styles.svcGrid}>
@@ -445,7 +445,7 @@ function Home() {
           </Link>
         </div>
       </section>
-      {/* SAMPLE / CONCEPT PROJECTS — replaces fake testimonials */}
+      {/* SAMPLE / CONCEPT PROJECTS - replaces fake testimonials */}
       <section className={styles.projSec}>
         <div className="section-label">Sample Work</div>
         <h2 className={styles.secH}> Featured Concepts&amp; Case Studies</h2>
@@ -498,7 +498,7 @@ function Home() {
         </p>
       </section>
 
-      {/* SKILLS — replaces "More Expertise Coming Soon" */}
+      {/* SKILLS - replaces "More Expertise Coming Soon" */}
       <section className={styles.skillsSec}>
         <div className={styles.skillsInner}>
           <div>
@@ -527,7 +527,7 @@ function Home() {
             <h3>Book a Free Discovery Call</h3>
             <p>
               Pick a 30-minute slot that works for you. We'll talk through your project, your goals
-              and how Kavaro can help — no pressure, no hard sell.
+              and how Kavaro can help - no pressure, no hard sell.
             </p>
             <a href={CALENDLY_URL} target="_blank" rel="noreferrer" className={styles.calBtn}>
               📅 Schedule on Calendly →
@@ -562,7 +562,7 @@ function Home() {
 
       <section className={styles.section}>
         <div className="section-label">How We Work</div>
-        <h2 className={styles.secH}>Our Process — A System You Can Trust</h2>
+        <h2 className={styles.secH}>Our Process - A System You Can Trust</h2>
         <p className={styles.secSub}>
           Businesses trust systems. Here's exactly what working with Kavaro looks like, from first
           call to ongoing support.
@@ -583,7 +583,7 @@ function Home() {
           Ready to Build Something <em>Real?</em>
         </h2>
         <p>
-          Whether you're a clinic in Nairobi or a startup anywhere in the world — let's talk. 100%
+          Whether you're a clinic in Nairobi or a startup anywhere in the world - let's talk. 100%
           remote, 100% honest.
         </p>
         <div className={styles.ctaBtns}>
