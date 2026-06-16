@@ -10,7 +10,7 @@ export default function Footer() {
           <img src={kavaroLogo} alt="Kavaro Agency logo" className={styles.logoImage} />
           <p className={styles.desc}>
             A small remote team designing and building honest digital products for growing
-            businesses — one website at a time.
+            businesses. One website at a time.
           </p>
           <a href="mailto:hello.kavaro@gmail.com" className={styles.emailLink}>
             hello.kavaro@gmail.com
@@ -64,11 +64,6 @@ export default function Footer() {
             </li>
             <li>
               <span>Nairobi, Kenya</span>
-            </li>
-            <li>
-              <a href="https://linkedin.com" target="_blank" rel="noreferrer">
-                LinkedIn
-              </a>
             </li>
           </ul>
         </div>
