@@ -109,7 +109,10 @@ function Contact() {
         email_sent: emailSent,
       });
 
-      if (dbError) throw new Error("Failed to save your inquiry. Please try again.");
+      if (dbError) {
+        console.error("Supabase insert error:", dbError);
+        throw new Error(`Database error: ${dbError.message} (code: ${dbError.code})`);
+      }
 
       setStatus({
         type: "success",
