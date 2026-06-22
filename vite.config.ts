@@ -12,4 +12,11 @@ export default defineConfig({
   tanstackStart: {
     server: { entry: "server" },
   },
+  vite: {
+    ssr: {
+      // Bundle supabase into the SSR output instead of treating it as external.
+      // Required because Cloudflare Workers don't have a Node.js module resolution layer.
+      noExternal: ["@supabase/supabase-js"],
+    },
+  },
 });
