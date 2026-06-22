@@ -276,7 +276,15 @@ function registerBookedCall(name: string | null, email: string | null, service: 
 }
 
 function Services() {
-  const calendlyUrl = import.meta.env.VITE_CALENDLY_URL || "https://calendly.com/hello-kavaro";
+  const calendlyUrl = import.meta.env.VITE_CALENDLY_URL || "https://calendly.com/hello-kavaro/30min";
+  // PopupModal requires a direct event URL, not the profile landing page.
+  // Append /30min if the URL doesn't already point to a specific event.
+  const calendlyEventUrl = calendlyUrl.endsWith("/")
+    ? `${calendlyUrl}30min`
+    : calendlyUrl.includes("/30min") || calendlyUrl.includes("/discovery")
+      ? calendlyUrl
+      : `${calendlyUrl}/30min`;
+
   const [modalOpen, setModalOpen] = useState(false);
   const [selectedService, setSelectedService] = useState<string | null>(null);
 
@@ -294,7 +302,7 @@ function Services() {
         invitee?.name ?? null,
         invitee?.email ?? null,
         selectedService,
-        calendlyUrl,
+        calendlyEventUrl,
       );
       setModalOpen(false);
     },
@@ -309,7 +317,7 @@ function Services() {
     <main>
       {typeof window !== "undefined" && (
         <PopupModal
-          url={calendlyUrl}
+          url={calendlyEventUrl}
           onModalClose={() => setModalOpen(false)}
           open={modalOpen}
           rootElement={document.body}
