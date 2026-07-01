@@ -6,8 +6,18 @@ const dotenv = require("dotenv");
 dotenv.config();
 
 const app = express();
-app.use(cors());
-app.use(express.json());
+app.use(cors({
+  origin: [
+    "https://kavaro-site.pages.dev",
+    "https://kavaroagency.com",
+    "https://www.kavaroagency.com",
+    // allow localhost during development
+    /^http:\/\/localhost:\d+$/,
+  ],
+  methods: ["GET", "POST"],
+  credentials: false,
+}));
+app.use(express.json({ limit: "10kb" })); // prevent oversized request bodies
 
 const PORT = process.env.PORT || 5000;
 const BASE_URL = process.env.BASE_URL || "https://sandbox.safaricom.co.ke";
@@ -24,21 +34,7 @@ app.get("/", (req, res) => {
 app.get("/health", (req, res) => {
   res.json({ status: "ok" });
 });
-app.get("/test-token", async (req, res) => {
-  try {
-    const token = await getAccessToken();
-
-    res.json({
-      success: true,
-      token,
-    });
-  } catch (error) {
-    res.json({
-      success: false,
-      error: error.response?.data || error.message,
-    });
-  }
-});
+// /test-token removed — it returned live M-Pesa OAuth tokens publicly
 
 /**
  * =========================
@@ -73,6 +69,12 @@ const getAccessToken = async () => {
  * =========================
  */
 app.post("/mpesa/stkpush", async (req, res) => {
+  // Require a server-side API key so only your frontend can trigger payments
+  const apiKey = req.headers["x-api-key"];
+  if (!apiKey || apiKey !== process.env.MPESA_API_KEY) {
+    return res.status(401).json({ success: false, message: "Unauthorized" });
+  }
+
   try {
     const { phone, amount, service } = req.body;
 
@@ -81,6 +83,17 @@ app.post("/mpesa/stkpush", async (req, res) => {
         success: false,
         message: "Phone and amount are required",
       });
+    }
+
+    // Basic phone format check (Safaricom format: 2547XXXXXXXX)
+    if (!/^2547\d{8}$/.test(String(phone))) {
+      return res.status(400).json({ success: false, message: "Invalid phone format. Use 2547XXXXXXXX" });
+    }
+
+    // Reasonable amount bounds
+    const amt = Number(amount);
+    if (isNaN(amt) || amt < 1 || amt > 300000) {
+      return res.status(400).json({ success: false, message: "Amount must be between 1 and 300,000 KES" });
     }
 
     const token = await getAccessToken();
@@ -159,8 +172,7 @@ app.post("/mpesa/callback", (req, res) => {
       const phone = metadata.find((i) => i.Name === "PhoneNumber")?.Value;
       const receipt = metadata.find((i) => i.Name === "MpesaReceiptNumber")?.Value;
 
-      console.log("✅ PAYMENT SUCCESS:");
-      console.log({ amount, phone, receipt, checkoutRequestID });
+      console.log("✅ PAYMENT SUCCESS — receipt:", receipt, "amount:", amount);
 
       // TODO: SAVE TO DATABASE (important for SaaS)
     } else {

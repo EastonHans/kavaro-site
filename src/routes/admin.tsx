@@ -222,7 +222,7 @@ function AdminDashboard() {
               type="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              placeholder="hello.kavaro@gmail.com"
+              placeholder="hello@kavaroagency.com"
               autoFocus
               required
             />

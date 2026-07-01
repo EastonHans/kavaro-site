@@ -109,15 +109,20 @@ function Contact() {
 
     try {
       const payload: ContactPayload = {
-        name: form.name.trim(),
-        email: form.email.trim(),
-        phone: form.phone.trim(),
-        service: form.service.trim(),
-        message: form.message.trim(),
+        name: form.name.trim().slice(0, 100),
+        email: form.email.trim().slice(0, 254),
+        phone: form.phone.trim().slice(0, 20),
+        service: form.service.trim().slice(0, 100),
+        message: form.message.trim().slice(0, 5000),
       };
 
       if (!payload.name || !payload.email || !payload.message) {
         throw new Error("Please fill in all required fields.");
+      }
+
+      // Basic email format check
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(payload.email)) {
+        throw new Error("Please enter a valid email address.");
       }
 
       let emailSent = false;
@@ -220,6 +225,7 @@ function Contact() {
                       placeholder="Your name"
                       value={form.name}
                       onChange={handleChange("name")}
+                      maxLength={100}
                       required
                     />
                   </div>
@@ -231,6 +237,7 @@ function Contact() {
                       placeholder="you@example.com"
                       value={form.email}
                       onChange={handleChange("email")}
+                      maxLength={254}
                       required
                     />
                   </div>
@@ -245,6 +252,7 @@ function Contact() {
                       placeholder="+254"
                       value={form.phone}
                       onChange={handleChange("phone")}
+                      maxLength={20}
                     />
                   </div>
                   <div className={styles.formGroup}>
@@ -311,6 +319,7 @@ function Contact() {
                       value={form.message}
                       onChange={handleChange("message")}
                       required={showMessage}
+                      maxLength={5000}
                       rows={6}
                     />
                   </div>
