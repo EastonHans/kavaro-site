@@ -33,7 +33,7 @@ export const contactAPI = {
     }
 
     const response = await emailjs.send(serviceId, templateId, {
-      to_email: "hello.kavaro@gmail.com",
+      to_email: "hello@kavaroagency.com",
       from_name: data.name,
       from_email: data.email,
       phone: data.phone || "Not provided",

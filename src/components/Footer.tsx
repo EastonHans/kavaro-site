@@ -12,8 +12,8 @@ export default function Footer() {
             A small remote team designing and building honest digital products for growing
             businesses. One website at a time.
           </p>
-          <a href="mailto:hello.kavaro@gmail.com" className={styles.emailLink}>
-            hello.kavaro@gmail.com
+          <a href="mailto:hello@kavaroagency.com" className={styles.emailLink}>
+            hello@kavaroagency.com
           </a>
         </div>
         <div className={styles.col}>
@@ -51,7 +51,7 @@ export default function Footer() {
           <h5>Contact</h5>
           <ul>
             <li>
-              <a href="mailto:hello.kavaro@gmail.com">hello.kavaro@gmail.com</a>
+              <a href="mailto:hello@kavaroagency.com">hello@kavaroagency.com</a>
             </li>
             <li>
               <a

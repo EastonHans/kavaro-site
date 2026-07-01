@@ -34,8 +34,8 @@ export default function Navbar() {
       </ul>
 
       <div className={styles.navRight}>
-        <a href="mailto:hello.kavaro@gmail.com" className={styles.email}>
-          hello.kavaro@gmail.com
+        <a href="mailto:hello@kavaroagency.com" className={styles.email}>
+          hello@kavaroagency.com
         </a>
         <Link to="/contact" className={styles.cta}>
           Get a Quote
